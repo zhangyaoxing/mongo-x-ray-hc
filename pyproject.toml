@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mongo-x-ray-hc"
-version = "1.5.3"
+version = "2.0.0"
 description = "Health check analysis plugin for x-ray"
 readme = "README.md"
 requires-python = ">=3.10,<4"
-dependencies = ["mongo-x-ray>=1.5.3"]
+dependencies = ["mongo-x-ray>=2.0.0"]
 
 [project.entry-points."mongo_x_ray.plugins"]
 healthcheck = "mongo_x_ray_hc.plugin:HealthcheckPlugin"
