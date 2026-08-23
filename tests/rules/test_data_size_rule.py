@@ -10,8 +10,8 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 
 from x_ray.shared import SEVERITY
 
-from x_ray_healthcheck.issues import ISSUE, ISSUE_MSG_MAP
-from x_ray_healthcheck.rules.data_size_rule import DataSizeRule
+from mongo_x_ray_hc.issues import ISSUE, ISSUE_MSG_MAP
+from mongo_x_ray_hc.rules.data_size_rule import DataSizeRule
 
 DATA_WITH_LARGE_SIZE = {
     "ns": "test.large_collection",

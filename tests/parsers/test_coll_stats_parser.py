@@ -1,4 +1,4 @@
-from x_ray_healthcheck.parsers.coll_stats_parser import CollStatsParser  # type: ignore
+from mongo_x_ray_hc.parsers.coll_stats_parser import CollStatsParser  # type: ignore
 
 STATS: list = [
     {

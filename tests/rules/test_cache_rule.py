@@ -8,8 +8,8 @@ YOU ARE RESPONSIBLE FOR TESTING, VALIDATING, AND SECURING THIS CODE WITHIN YOUR 
 THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 
-from x_ray_healthcheck.issues import ISSUE  # type: ignore
-from x_ray_healthcheck.rules.cache_rule import CacheRule  # type: ignore
+from mongo_x_ray_hc.issues import ISSUE  # type: ignore
+from mongo_x_ray_hc.rules.cache_rule import CacheRule  # type: ignore
 
 DATA_BASE_SERVER_STATUS = {
     "wiredTiger": {

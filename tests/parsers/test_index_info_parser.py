@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 
 from bson import json_util  # type: ignore
 
-from x_ray_healthcheck.parsers.index_info_parser import IndexInfoParser  # type: ignore
+from mongo_x_ray_hc.parsers.index_info_parser import IndexInfoParser  # type: ignore
 
 INDEX_INFOS = """[
     {"ns": "foo._test_", "captureTime": {"$date": "2026-03-17T22:08:34.595"}, "indexStats": []},

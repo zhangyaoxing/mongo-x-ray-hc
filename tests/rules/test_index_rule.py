@@ -10,8 +10,8 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 
 from datetime import datetime, timezone
 
-from x_ray_healthcheck.issues import ISSUE  # type: ignore
-from x_ray_healthcheck.rules.index_rule import IndexRule  # type: ignore
+from mongo_x_ray_hc.issues import ISSUE  # type: ignore
+from mongo_x_ray_hc.rules.index_rule import IndexRule  # type: ignore
 
 DATA_INDEX_PROBLEM = [
     {

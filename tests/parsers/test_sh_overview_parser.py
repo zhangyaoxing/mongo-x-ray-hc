@@ -1,4 +1,4 @@
-from x_ray_healthcheck.parsers.sh_overview_parser import SHOverviewParser
+from mongo_x_ray_hc.parsers.sh_overview_parser import SHOverviewParser
 
 CLUSTER_INFO = {
     "type": "SH",

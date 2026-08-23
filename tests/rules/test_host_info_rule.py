@@ -9,8 +9,8 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 from x_ray.shared import SEVERITY
 
-from x_ray_healthcheck.issues import ISSUE
-from x_ray_healthcheck.rules.host_info_rule import HostInfoRule
+from mongo_x_ray_hc.issues import ISSUE
+from mongo_x_ray_hc.rules.host_info_rule import HostInfoRule
 
 DATA_HOST_INFO_SAME_HARDWARE = [
     {

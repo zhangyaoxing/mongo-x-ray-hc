@@ -1,4 +1,4 @@
-from x_ray_healthcheck.parsers.cache_parser import CacheParser  # type: ignore
+from mongo_x_ray_hc.parsers.cache_parser import CacheParser  # type: ignore
 
 CACHES: list = [
     {

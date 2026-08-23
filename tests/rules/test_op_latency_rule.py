@@ -9,8 +9,8 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 from x_ray.shared import SEVERITY
 
-from x_ray_healthcheck.issues import ISSUE, ISSUE_MSG_MAP
-from x_ray_healthcheck.rules.op_latency_rule import OpLatencyRule
+from mongo_x_ray_hc.issues import ISSUE, ISSUE_MSG_MAP
+from mongo_x_ray_hc.rules.op_latency_rule import OpLatencyRule
 
 DATA_WITH_HIGH_LATENCY = {
     "latencyStats": {

@@ -12,8 +12,8 @@ from datetime import datetime, timezone
 from x_ray.shared import SEVERITY
 from x_ray.version import Version
 
-from x_ray_healthcheck.issues import ISSUE, ISSUE_MSG_MAP
-from x_ray_healthcheck.rules.shard_mongos_rule import ShardMongosRule
+from mongo_x_ray_hc.issues import ISSUE, ISSUE_MSG_MAP
+from mongo_x_ray_hc.rules.shard_mongos_rule import ShardMongosRule
 
 MONGOS_IRRESPONSIVE = [
     {

@@ -9,8 +9,8 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 from x_ray.shared import SEVERITY
 
-from x_ray_healthcheck.issues import ISSUE
-from x_ray_healthcheck.rules.fs_type_rule import FSTypeRule
+from mongo_x_ray_hc.issues import ISSUE
+from mongo_x_ray_hc.rules.fs_type_rule import FSTypeRule
 
 
 def _data(db_path, mounts):

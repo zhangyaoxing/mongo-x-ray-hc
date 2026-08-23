@@ -9,8 +9,8 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 from x_ray.shared import SEVERITY
 
-from x_ray_healthcheck.issues import ISSUE, ISSUE_MSG_MAP
-from x_ray_healthcheck.rules.version_eol_rule import VersionEOLRule
+from mongo_x_ray_hc.issues import ISSUE, ISSUE_MSG_MAP
+from mongo_x_ray_hc.rules.version_eol_rule import VersionEOLRule
 
 EOL_BUILD_INFO = {
     "versionArray": [4, 2, 8],

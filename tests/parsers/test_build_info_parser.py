@@ -1,4 +1,4 @@
-from x_ray_healthcheck.parsers.build_info_parser import BuildInfoParser  # type: ignore
+from mongo_x_ray_hc.parsers.build_info_parser import BuildInfoParser  # type: ignore
 
 BUILD_INFOS = [
     (

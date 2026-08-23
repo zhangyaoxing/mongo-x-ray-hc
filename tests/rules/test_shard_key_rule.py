@@ -7,8 +7,8 @@ THEY ARE NOT PRODUCTION-READY AND MAY LACK THE SECURITY HARDENING, ERROR HANDLIN
 YOU ARE RESPONSIBLE FOR TESTING, VALIDATING, AND SECURING THIS CODE WITHIN YOUR OWN ENVIRONMENT BEFORE IMPLEMENTATION. 
 THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
-from x_ray_healthcheck.issues import ISSUE
-from x_ray_healthcheck.rules.shard_key_rule import ShardKeyRule
+from mongo_x_ray_hc.issues import ISSUE
+from mongo_x_ray_hc.rules.shard_key_rule import ShardKeyRule
 
 DATA_IMPROPER_SHARD_KEY = {
     "_id": "foo.bar3",

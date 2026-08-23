@@ -1,4 +1,4 @@
-from x_ray_healthcheck.parsers.opcounter_parser import OpcounterParser  # type: ignore
+from mongo_x_ray_hc.parsers.opcounter_parser import OpcounterParser  # type: ignore
 
 OPCOUNTER_INFOS = [
     {

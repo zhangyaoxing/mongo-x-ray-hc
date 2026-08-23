@@ -1,4 +1,4 @@
-from x_ray_healthcheck.parsers.conn_parser import ConnParser  # type: ignore
+from mongo_x_ray_hc.parsers.conn_parser import ConnParser  # type: ignore
 
 CONNS = [
     {

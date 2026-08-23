@@ -1,4 +1,4 @@
-from x_ray_healthcheck.parsers.query_targeting_parser import QueryTargetingParser  # type: ignore
+from mongo_x_ray_hc.parsers.query_targeting_parser import QueryTargetingParser  # type: ignore
 
 QT_INFOS = [
     {

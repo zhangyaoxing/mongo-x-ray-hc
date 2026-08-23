@@ -10,8 +10,8 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 from bson import Timestamp
 from x_ray.shared import SEVERITY
 
-from x_ray_healthcheck.issues import ISSUE, ISSUE_MSG_MAP
-from x_ray_healthcheck.rules.rs_status_rule import RSStatusRule
+from mongo_x_ray_hc.issues import ISSUE, ISSUE_MSG_MAP
+from mongo_x_ray_hc.rules.rs_status_rule import RSStatusRule
 
 RS_STATUS_NO_PRIMARY = {
     "set": "shard01",

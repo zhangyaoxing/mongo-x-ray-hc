@@ -14,7 +14,7 @@ from bson import json_util
 from x_ray.shared import SEVERITY, str_to_md_id, to_json
 from x_ray.utils import get_script_path
 
-from x_ray_healthcheck.shared import enum_all_nodes, enum_result_items
+from mongo_x_ray_hc.shared import enum_all_nodes, enum_result_items
 
 # The enumeration callbacks below convert any failure into pytest.fail so an
 # unexpected assertion error surfaces with context instead of being swallowed;

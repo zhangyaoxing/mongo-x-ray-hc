@@ -1,4 +1,4 @@
-from x_ray_healthcheck.parsers.rs_overview_parser import RSOverviewParser
+from mongo_x_ray_hc.parsers.rs_overview_parser import RSOverviewParser
 
 RS_CONFIGS = [
     (

@@ -1,4 +1,4 @@
-from x_ray_healthcheck.parsers.host_info_parser import HostInfoParser  # type: ignore
+from mongo_x_ray_hc.parsers.host_info_parser import HostInfoParser  # type: ignore
 
 HOST_INFOS = [
     (

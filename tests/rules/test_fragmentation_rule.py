@@ -9,8 +9,8 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 from x_ray.shared import SEVERITY
 
-from x_ray_healthcheck.issues import ISSUE, ISSUE_MSG_MAP
-from x_ray_healthcheck.rules.fragmentation_rule import FragmentationRule
+from mongo_x_ray_hc.issues import ISSUE, ISSUE_MSG_MAP
+from mongo_x_ray_hc.rules.fragmentation_rule import FragmentationRule
 
 DATA_WITH_HIGH_FRAGMENTATION = {
     "ns": "test.fragmented_collection",

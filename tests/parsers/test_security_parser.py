@@ -1,4 +1,4 @@
-from x_ray_healthcheck.parsers.security_parser import SecurityParser  # type: ignore
+from mongo_x_ray_hc.parsers.security_parser import SecurityParser  # type: ignore
 
 SECURITY_INFOS = [
     {
