@@ -1,6 +1,6 @@
 from bson.objectid import ObjectId
 from bson.timestamp import Timestamp
-from x_ray.utils import is_number  # type: ignore
+from mongo_x_ray.utils import is_number  # type: ignore
 
 from mongo_x_ray_hc.parsers.rs_details_parser import RSDetailsParser  # type: ignore
 

@@ -9,8 +9,8 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 from datetime import datetime, timezone
 
-from x_ray.shared import SEVERITY
-from x_ray.version import Version
+from mongo_x_ray.shared import SEVERITY
+from mongo_x_ray.version import Version
 
 from mongo_x_ray_hc.issues import ISSUE, ISSUE_MSG_MAP
 from mongo_x_ray_hc.rules.shard_mongos_rule import ShardMongosRule

@@ -19,9 +19,9 @@ import pytest
 
 pytest.importorskip("playwright")  # pylint: disable=wrong-import-position
 
+from mongo_x_ray.utils import load_config
 from pymongo import MongoClient
 from pymongo.uri_parser import parse_uri
-from x_ray.utils import load_config
 
 from mongo_x_ray_hc.framework import Framework as HealthCheckFramework
 

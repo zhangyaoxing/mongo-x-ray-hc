@@ -12,9 +12,9 @@ import html as html_mod
 import logging
 from typing import TextIO
 
-from x_ray.framework import BaseFramework
-from x_ray.shared import str_to_md_id
-from x_ray.utils import bold, green, load_classes, yellow
+from mongo_x_ray.framework import BaseFramework
+from mongo_x_ray.shared import str_to_md_id
+from mongo_x_ray.utils import bold, green, load_classes, yellow
 
 from mongo_x_ray_hc.shared import irresponsive_nodes
 
@@ -81,7 +81,7 @@ class Framework(BaseFramework):
 
         # Enrich test results with matched risks from the risk register
         try:
-            from x_ray.risk_register import enrich_test_results  # pylint: disable=import-outside-toplevel
+            from mongo_x_ray.risk_register import enrich_test_results  # pylint: disable=import-outside-toplevel
 
             matched = enrich_test_results(all_test_result)
             if matched:

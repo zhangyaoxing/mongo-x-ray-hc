@@ -11,8 +11,8 @@ from datetime import datetime
 
 import pytest
 from bson import json_util
-from x_ray.shared import SEVERITY, str_to_md_id, to_json
-from x_ray.utils import get_script_path
+from mongo_x_ray.shared import SEVERITY, str_to_md_id, to_json
+from mongo_x_ray.utils import get_script_path
 
 from mongo_x_ray_hc.shared import enum_all_nodes, enum_result_items
 

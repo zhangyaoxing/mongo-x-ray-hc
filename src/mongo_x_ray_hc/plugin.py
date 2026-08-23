@@ -12,10 +12,10 @@ import logging
 import os
 from copy import deepcopy
 
+from mongo_x_ray.plugin import Plugin, open_report
+from mongo_x_ray.utils import load_config
 from pymongo import MongoClient
 from pymongo.uri_parser import parse_uri
-from x_ray.plugin import Plugin, open_report
-from x_ray.utils import load_config
 
 from mongo_x_ray_hc.framework import Framework
 

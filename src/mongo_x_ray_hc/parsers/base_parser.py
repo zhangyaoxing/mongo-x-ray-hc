@@ -2,8 +2,8 @@
 
 import os
 
-from x_ray.parsers.base_parser import TABLE_ALIGNMENT
-from x_ray.parsers.base_parser import BaseParser as CoreBaseParser
+from mongo_x_ray.parsers.base_parser import TABLE_ALIGNMENT
+from mongo_x_ray.parsers.base_parser import BaseParser as CoreBaseParser
 
 
 class BaseParser(CoreBaseParser):

@@ -10,8 +10,8 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 
 from typing import Optional
 
-from x_ray.utils import yellow
-from x_ray.version import Version
+from mongo_x_ray.utils import yellow
+from mongo_x_ray.version import Version
 
 from mongo_x_ray_hc.check_items.base_item import BaseItem
 from mongo_x_ray_hc.parsers.build_info_parser import BuildInfoParser

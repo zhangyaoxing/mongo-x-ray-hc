@@ -8,7 +8,7 @@ YOU ARE RESPONSIBLE FOR TESTING, VALIDATING, AND SECURING THIS CODE WITHIN YOUR 
 THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 from bson import Timestamp
-from x_ray.shared import SEVERITY
+from mongo_x_ray.shared import SEVERITY
 
 from mongo_x_ray_hc.issues import ISSUE, ISSUE_MSG_MAP
 from mongo_x_ray_hc.rules.rs_status_rule import RSStatusRule
