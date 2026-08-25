@@ -49,8 +49,12 @@ Examples:
             type=str,
             default=None,
         )
-        parser.add_argument("-s", "--checkset", help='Checkset to run. Defaults to "default".', type=str, default="default")
-        parser.add_argument("-o", "--output", help='Output folder path. Defaults to "output/".', type=str, default="output/")
+        parser.add_argument(
+            "-s", "--checkset", help='Checkset to run. Defaults to "default".', type=str, default="default"
+        )
+        parser.add_argument(
+            "-o", "--output", help='Output folder path. Defaults to "output/".', type=str, default="output/"
+        )
         parser.add_argument(
             "-f",
             "--format",
@@ -59,7 +63,9 @@ Examples:
             default="html",
             choices=["markdown", "html", "pdf"],
         )
-        parser.add_argument("--no-browser", help="Do not open the generated report in the browser.", action="store_true")
+        parser.add_argument(
+            "--no-browser", help="Do not open the generated report in the browser.", action="store_true"
+        )
 
     def run(self, args) -> int:
         """Run the health check command."""

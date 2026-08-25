@@ -28,9 +28,9 @@ class NumaRule(BaseRule):
         host = kwargs.get("extra_info", {}).get("host", "unknown")
         version = kwargs.get("extra_info", {}).get("version", None)
         test_result = []
-        assert (
-            version is not None
-        ), "Version information is required for NUMA check. Run BuildInfoItem before this check."
+        assert version is not None, (
+            "Version information is required for NUMA check. Run BuildInfoItem before this check."
+        )
         numa_enabled = data.get("system", {}).get("numaEnabled", None)
         if numa_enabled is not None and numa_enabled and version <= "7.0":
             issue = create_issue(ISSUE.NUMA_ENABLED, host, params={"version": version, "host": host})

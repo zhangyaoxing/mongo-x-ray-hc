@@ -51,9 +51,7 @@ EXPECTED_SECTIONS = [
     "By Category",
     "1 Review Test Results",
     "2 Review Raw Results",
-] + [
-    f"{part}{name}" for i, name in enumerate(HC_ITEMS, 1) for part in (f"1.{i} ", f"2.{i} Review ")
-]
+] + [f"{part}{name}" for i, name in enumerate(HC_ITEMS, 1) for part in (f"1.{i} ", f"2.{i} Review ")]
 
 
 @pytest.fixture(scope="module")
@@ -69,9 +67,7 @@ def report_html(tmp_path_factory):
     output_dir = tmp_path_factory.mktemp("report")
     config = load_config(None)["healthcheck"]
     framework = HealthCheckFramework(deepcopy(config))
-    framework.run_checks(
-        "default", client=client, output_folder=f"{output_dir}/", parsed_uri=parse_uri(HC_URI)
-    )
+    framework.run_checks("default", client=client, output_folder=f"{output_dir}/", parsed_uri=parse_uri(HC_URI))
     framework.output_results(output_folder=f"{output_dir}/", fmt="html", open_browser=False)
     client.close()
     html_files = list(output_dir.rglob("report.html"))

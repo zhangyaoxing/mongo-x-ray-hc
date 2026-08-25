@@ -57,8 +57,8 @@ class FragmentationRule(BaseRule):
         """
         test_result = []
         storage_size = storage_stats.get("storageSize", 0)
-        coll_reusable = storage_stats.get("wiredTiger", {}).get("block-manager", {}).get(
-            "file bytes available for reuse", 0
+        coll_reusable = (
+            storage_stats.get("wiredTiger", {}).get("block-manager", {}).get("file bytes available for reuse", 0)
         )
         coll_frag_ratio = round(coll_reusable / storage_size if storage_size else 0, 4)
         if coll_frag_ratio > self._fragmentation_ratio:
