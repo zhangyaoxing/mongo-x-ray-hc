@@ -80,9 +80,11 @@ class Framework(BaseFramework):
         category_counts = {category: all_categories.count(category) for category in set(all_categories)}
 
         # Enrich test results with matched risks from the risk register
+        risk_available = False
         try:
-            from mongo_x_ray_risk import enrich_test_results
+            from mongo_x_ray_risk import enrich_test_results, has_risks
 
+            risk_available = has_risks()
             matched = enrich_test_results(all_test_result)
             if matched:
                 self._logger.info(green(f"Matched {matched} issues to known risks"))
@@ -96,10 +98,18 @@ class Framework(BaseFramework):
             if mr and r.get("title"):
                 cat_risks[r["title"]] = mr
 
-        output.write(
-            '| <span data-sortable="true">Category</span>{300} | <span data-sortable="true">Count</span>{100} | <span data-sortable="false">Known Risks</span>{150} |\n'
-        )
-        output.write("|---:|:---:|:---|\n")
+        # The Known Risks column only makes sense when a risk register was
+        # detected, so it is omitted from the summary table otherwise.
+        if risk_available:
+            output.write(
+                '| <span data-sortable="true">Category</span>{300} | <span data-sortable="true">Count</span>{100} | <span data-sortable="false">Known Risks</span>{150} |\n'
+            )
+            output.write("|---:|:---:|:---|\n")
+        else:
+            output.write(
+                '| <span data-sortable="true">Category</span>{300} | <span data-sortable="true">Count</span>{100} |\n'
+            )
+            output.write("|---:|:---:|\n")
         for category, count in category_counts.items():
             risk_html = ""
             mr = cat_risks.get(category)
@@ -113,7 +123,12 @@ class Framework(BaseFramework):
                     f'<span class="risk-name">{rname}</span>'
                     f"{rdesc}</span></span>"
                 )
-            output.write(f'|{category}|<span data-sort-value="{count}"><strong>{count}</strong></span>|{risk_html}|\n')
+            if risk_available:
+                output.write(
+                    f'|{category}|<span data-sort-value="{count}"><strong>{count}</strong></span>|{risk_html}|\n'
+                )
+            else:
+                output.write(f'|{category}|<span data-sort-value="{count}"><strong>{count}</strong></span>|\n')
         output.write("\n")
         if len(irresponsive_nodes) > 0:
             output.write("The following nodes have been detected as irresponsive during the checks:\n\n")

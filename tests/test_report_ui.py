@@ -141,10 +141,21 @@ def test_overview_severity_table(page):
 
 @pytest.mark.integration
 def test_overview_category_table(page):
-    table = page.locator("table", has_text="Known Risks").first
+    table = page.locator("table", has_text="Category").first
     headers = table.locator("thead th").all_inner_texts()
-    for header in ("Category", "Count", "Known Risks"):
+    for header in ("Category", "Count"):
         assert header in headers
+    # The Known Risks column is only rendered when a risk register was
+    # detected (installed and non-empty).
+    risk_detected = False
+    try:
+        from mongo_x_ray_risk import has_risks
+
+        risk_detected = has_risks()
+    except Exception:
+        risk_detected = False
+    if risk_detected:
+        assert "Known Risks" in headers
 
 
 @pytest.mark.integration
