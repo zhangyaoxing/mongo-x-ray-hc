@@ -81,7 +81,7 @@ class Framework(BaseFramework):
 
         # Enrich test results with matched risks from the risk register
         try:
-            from mongo_x_ray_risk_register import enrich_test_results
+            from mongo_x_ray_risk import enrich_test_results
 
             matched = enrich_test_results(all_test_result)
             if matched:
