@@ -33,6 +33,19 @@ x-ray healthcheck [-h] [-u URI] [-s CHECKSET] [-o OUTPUT]
 | `-f, --format` | Output format: `markdown`, `html` or `pdf` (PDF also keeps Markdown and HTML). | `html` |
 | `--no-browser` | Do not open the generated report in the browser. | `false` |
 
+## Check Items
+
+| Item | Purpose |
+| --- | --- |
+| `BuildInfoItem` | MongoDB server build information, including a version end-of-life check. |
+| `ClusterItem` | Cluster topology: replica set config/status, sharding overview and oplog window. |
+| `CollInfoItem` | Collection information: sizes, fragmentation and operation latency. |
+| `HostInfoItem` | Host information: filesystem type, NUMA settings and host properties. |
+| `IndexInfoItem` | Index coverage and health. |
+| `SecurityItem` | Security posture (authentication and authorization). |
+| `ServerStatusItem` | Server status: cache, connections, opcounters and query targeting. |
+| `ShardKeyItem` | Shard key selection and data balance. |
+
 ## Development
 
 Requires Python 3.10+ and the [mongo-x-ray](https://github.com/mongodb-ps/ce-mongo-x-ray) core package.
