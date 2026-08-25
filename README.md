@@ -18,6 +18,15 @@ x-ray hc  # alias for healthcheck
 x-ray healthcheck -u mongodb://localhost:27017 -f html -o /path/to/output/
 ```
 
+## Compatibility
+
+Supports MongoDB 5.0 and above on replica sets and sharded clusters.
+**Standalone deployments are not supported.**
+
+| Replica Set | Sharded Cluster | Standalone |
+| :---------: | :-------------: | :--------: |
+| ✅ | ✅ | ❌ |
+
 ## Parameters
 
 ```bash
