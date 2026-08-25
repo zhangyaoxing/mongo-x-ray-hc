@@ -9,11 +9,11 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 
 from datetime import datetime
+from pathlib import Path
 
 import pytest
 from bson import json_util
 from mongo_x_ray.shared import SEVERITY, str_to_md_id, to_json
-from mongo_x_ray.utils import get_script_path
 
 from mongo_x_ray_hc.shared import enum_all_nodes, enum_result_items
 
@@ -45,9 +45,7 @@ def test_str_to_md_id():
 
 def test_enum_all_nodes_sh():
     nodes = None
-    with open(
-        get_script_path("../../misc/example_data_structure/healthcheck/discovered_sh.json"), "r", encoding="utf-8"
-    ) as f:
+    with open(Path(__file__).resolve().parent / "data" / "discovered_sh.json", "r", encoding="utf-8") as f:
         nodes = json_util.loads(f.read())
 
     def func_sh_cluster(set_name, nodes, **kwargs):
@@ -177,9 +175,7 @@ def test_enum_all_nodes_sh():
 
 def test_enum_all_nodes_rs():
     nodes = None
-    with open(
-        get_script_path("../../misc/example_data_structure/healthcheck/discovered_rs.json"), "r", encoding="utf-8"
-    ) as f:
+    with open(Path(__file__).resolve().parent / "data" / "discovered_rs.json", "r", encoding="utf-8") as f:
         nodes = json_util.loads(f.read())
 
     def func_rs_cluster(set_name, nodes, **kwargs):
@@ -218,9 +214,7 @@ def test_enum_all_nodes_rs():
 
 def test_enum_result_items_rs():
     result = None
-    with open(
-        get_script_path("../../misc/example_data_structure/healthcheck/result_rs.json"), "r", encoding="utf-8"
-    ) as f:
+    with open(Path(__file__).resolve().parent / "data" / "result_rs.json", "r", encoding="utf-8") as f:
         result = json_util.loads(f.read())
 
     def func_rs_cluster(name, node, **kwargs):
@@ -258,9 +252,7 @@ def test_enum_result_items_rs():
 
 def test_enum_result_items_sh():
     result = None
-    with open(
-        get_script_path("../../misc/example_data_structure/healthcheck/result_sh.json"), "r", encoding="utf-8"
-    ) as f:
+    with open(Path(__file__).resolve().parent / "data" / "result_sh.json", "r", encoding="utf-8") as f:
         result = json_util.loads(f.read())
 
     def func_sh_cluster(name, node, **kwargs):
