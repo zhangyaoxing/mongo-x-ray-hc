@@ -73,7 +73,7 @@ Examples:
         client = MongoClient(uri, serverSelectionTimeoutMS=5000)
         try:
             client.admin.command("ping")
-        except Exception as exc:  # pylint: disable=broad-exception-caught
+        except Exception as exc:
             client.close()
             logger.error("Cannot connect to MongoDB at %s: %s", uri, exc)
             return 1

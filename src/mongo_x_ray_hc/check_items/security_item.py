@@ -33,7 +33,7 @@ class SecurityItem(BaseItem):
 
         nodes = discover_nodes(client, parsed_uri)
 
-        def func_node(name, node, **kwargs):  # pylint: disable=unused-argument
+        def func_node(name, node, **kwargs):
             client = node["client"]
             host = node["host"]
             if "pingLatencySec" in node and node["pingLatencySec"] > MAX_MONGOS_PING_LATENCY:
@@ -64,7 +64,7 @@ class SecurityItem(BaseItem):
         raw_result = self.captured_sample
         raw_results: list = []
 
-        def func_node(set_name, node, **kwargs):  # pylint: disable=unused-argument
+        def func_node(set_name, node, **kwargs):
             raw_results.append(
                 {
                     "set_name": set_name,

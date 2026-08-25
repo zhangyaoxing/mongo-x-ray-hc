@@ -41,7 +41,7 @@ class ServerStatusItem(BaseItem):
         client = kwargs.get("client")
         parsed_uri = kwargs.get("parsed_uri")
 
-        def func_first_req(set_name, node, server_status):  # pylint: disable=unused-argument
+        def func_first_req(set_name, node, server_status):
             # First request do nothing but return the server status as is.
             # The test will be in the 2nd request.
             return [], {"server_status": server_status}
@@ -79,7 +79,7 @@ class ServerStatusItem(BaseItem):
 
         nodes = discover_nodes(client, parsed_uri)
 
-        def func_all_first(set_name, node, **kwargs):  # pylint: disable=unused-argument
+        def func_all_first(set_name, node, **kwargs):
             return enumerator(set_name, node, func_req=func_first_req, **kwargs)
 
         result1 = enum_all_nodes(
@@ -107,7 +107,7 @@ class ServerStatusItem(BaseItem):
         # These metrics needs to compare 2 `serverStatus` results
         cache = {}
 
-        def func_data_member(set_name, node, **kwargs):  # pylint: disable=unused-argument
+        def func_data_member(set_name, node, **kwargs):
             raw_result = node.get("rawResult", {})
             host = node["host"]
             if not raw_result:
@@ -150,7 +150,7 @@ class ServerStatusItem(BaseItem):
 
         op_counters = {}
 
-        def func_all_member(set_name, node, **kwargs):  # pylint: disable=unused-argument
+        def func_all_member(set_name, node, **kwargs):
             raw_result = node.get("rawResult", {})
             host = node["host"]
             if not raw_result:
@@ -216,7 +216,7 @@ class ServerStatusItem(BaseItem):
         conns: list = []
         ops: list = []
 
-        def func_all_members(set_name, node, **kwargs) -> None:  # pylint: disable=unused-argument
+        def func_all_members(set_name, node, **kwargs) -> None:
             raw_result = node.get("rawResult", {})
             host: str = node["host"]
             conns.append(
@@ -249,7 +249,7 @@ class ServerStatusItem(BaseItem):
         qts: list = []
         caches: list = []
 
-        def func_data_member(set_name, node, **kwargs):  # pylint: disable=unused-argument
+        def func_data_member(set_name, node, **kwargs):
             raw_result = node.get("rawResult", {})
             host = node["host"]
             qts.append(

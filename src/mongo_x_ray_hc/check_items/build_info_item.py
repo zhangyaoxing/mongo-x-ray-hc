@@ -32,7 +32,7 @@ class BuildInfoItem(BaseItem):
         parsed_uri = kwargs.get("parsed_uri")
         nodes = discover_nodes(client, parsed_uri)
 
-        def func_node(set_name, node, **kwargs):  # pylint: disable=unused-argument
+        def func_node(set_name, node, **kwargs):
             host = node["host"]
             if "pingLatencySec" in node and node["pingLatencySec"] > MAX_MONGOS_PING_LATENCY:
                 self._logger.warning(
@@ -65,7 +65,7 @@ class BuildInfoItem(BaseItem):
         result = self.captured_sample
         build_infos = []
 
-        def func_node(name, node, **kwargs):  # pylint: disable=unused-argument
+        def func_node(name, node, **kwargs):
             raw_result = node.get("rawResult", {})
             host = node["host"]
             build_infos.append((name, host, raw_result))

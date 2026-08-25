@@ -36,7 +36,7 @@ class HostInfoItem(BaseItem):
 
         host_infos = {}
 
-        def func_single(name, node, **kwargs):  # pylint: disable=unused-argument
+        def func_single(name, node, **kwargs):
             client = node["client"]
             version = node.get("version", None)
             if "pingLatencySec" in node and node["pingLatencySec"] > MAX_MONGOS_PING_LATENCY:
@@ -90,7 +90,7 @@ class HostInfoItem(BaseItem):
         result = self.captured_sample
         host_infos = []
 
-        def func_component(name, node, **kwargs):  # pylint: disable=unused-argument
+        def func_component(name, node, **kwargs):
             members = node["members"]
             host_infos.extend([(m["host"], m["rawResult"]) for m in members])
 

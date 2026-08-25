@@ -35,7 +35,7 @@ class ClusterItem(BaseItem):
         self._rules["shard_mongos"] = ShardMongosRule(config)
         self._rules["oplog_window"] = OplogWindowRule(config)
 
-    def _check_rs(self, set_name, node, **kwargs):  # pylint: disable=unused-argument
+    def _check_rs(self, set_name, node, **kwargs):
         """
         Run the cluster level checks
         """
@@ -64,7 +64,7 @@ class ClusterItem(BaseItem):
 
         return test_result, raw_result
 
-    def _check_sh(self, set_name, node, **kwargs):  # pylint: disable=unused-argument
+    def _check_sh(self, set_name, node, **kwargs):
         """
         Check if the sharded cluster is available and connected.
         """
@@ -79,7 +79,7 @@ class ClusterItem(BaseItem):
         }
         return test_result, raw_result
 
-    def _check_rs_member(self, set_name, node, **kwargs):  # pylint: disable=unused-argument
+    def _check_rs_member(self, set_name, node, **kwargs):
         """
         Run the replica set member level checks
         """
@@ -148,12 +148,12 @@ class ClusterItem(BaseItem):
         rs_configs = []
         rs_infos = []
 
-        def func_sh(_, result, **kwargs):  # pylint: disable=unused-argument
+        def func_sh(_, result, **kwargs):
             nonlocal output
             parser = SHOverviewParser()
             output += parser.markdown(result)
 
-        def func_rs(set_name, result, **kwargs):  # pylint: disable=unused-argument
+        def func_rs(set_name, result, **kwargs):
             raw_result = result["rawResult"]
             if raw_result is None:
                 rs_config = None

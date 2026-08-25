@@ -81,12 +81,12 @@ class Framework(BaseFramework):
 
         # Enrich test results with matched risks from the risk register
         try:
-            from mongo_x_ray.risk_register import enrich_test_results  # pylint: disable=import-outside-toplevel
+            from mongo_x_ray.risk_register import enrich_test_results
 
             matched = enrich_test_results(all_test_result)
             if matched:
                 self._logger.info(green(f"Matched {matched} issues to known risks"))
-        except Exception:  # pylint: disable=broad-exception-caught
+        except Exception:
             self._logger.debug("Risk register matching not available", exc_info=True)
 
         # Build category → matched_risk lookup

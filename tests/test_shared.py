@@ -21,7 +21,6 @@ from mongo_x_ray_hc.shared import enum_all_nodes, enum_result_items
 # unexpected assertion error surfaces with context instead of being swallowed;
 # they also mirror the enumeration API's callback signature even when a
 # particular closure does not use every parameter.
-# pylint: disable=broad-exception-caught,unused-argument
 
 
 def test_to_json():
