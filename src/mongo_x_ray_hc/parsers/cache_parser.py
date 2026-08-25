@@ -6,7 +6,7 @@ from mongo_x_ray_hc.parsers.base_parser import BaseParser
 class CacheParser(BaseParser):
     def parse(self, data, **kwargs) -> list:
         output_list: list = []
-        rows: list[list[str]] = []
+        rows: list[list[str | tuple]] = []
         cache_table = {
             "type": "table",
             "caption": "WiredTiger Cache",

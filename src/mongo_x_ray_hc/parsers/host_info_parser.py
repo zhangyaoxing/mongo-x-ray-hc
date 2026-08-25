@@ -15,7 +15,7 @@ class HostInfoParser(BaseParser):
             list: The parsed host information as a list of table items.
         """
         output_list: list[dict] = []
-        rows: list[list[str]] = []
+        rows: list[list[str | tuple]] = []
         rows_mounts: list[list[str]] = []
         table_hardware: dict = {
             "type": "table",

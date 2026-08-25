@@ -15,7 +15,7 @@ class CollOverviewParser(BaseParser):
             list: The parsed collection information as a list of table items.
         """
         output_list: list[dict] = []
-        rows: list[list[str]] = []
+        rows: list[list[str | tuple]] = []
         data_sizes: dict[str, dict[str, int]] = {}
         stats_table = {
             "type": "table",
