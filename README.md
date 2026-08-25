@@ -14,9 +14,24 @@ pip install mongo-x-ray mongo-x-ray-hc
 
 ```bash
 x-ray healthcheck
-x-ray hc  # alias
+x-ray hc  # alias for healthcheck
 x-ray healthcheck -u mongodb://localhost:27017 -f html -o /path/to/output/
 ```
+
+## Parameters
+
+```bash
+x-ray healthcheck [-h] [-u URI] [-s CHECKSET] [-o OUTPUT]
+                  [-f {markdown,html,pdf}] [--no-browser]
+```
+
+| Argument | Description | Default |
+| --- | --- | --- |
+| `-u, --uri` | MongoDB connection URI. | `HC_URI` env var, else `mongodb://localhost:47017` |
+| `-s, --checkset` | Checkset to run. | `default` |
+| `-o, --output` | Output folder path. | `output/` |
+| `-f, --format` | Output format: `markdown`, `html` or `pdf` (PDF also keeps Markdown and HTML). | `html` |
+| `--no-browser` | Do not open the generated report in the browser. | `false` |
 
 ## Development
 
