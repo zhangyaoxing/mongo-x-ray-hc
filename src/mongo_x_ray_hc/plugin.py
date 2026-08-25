@@ -26,6 +26,7 @@ DEFAULT_HC_URI = "mongodb://localhost:47017"
 
 class HealthcheckPlugin(Plugin):
     name = "healthcheck"
+    distribution = "mongo-x-ray-hc"
     aliases = ["hc"]
     help = "Run a MongoDB deployment health check"
     description = """
