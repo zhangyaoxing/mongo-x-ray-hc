@@ -91,6 +91,7 @@ class ISSUE(enum.Enum):
     FS_TYPE_EXT4_NOATIME = 1505
     # Write Concern Issues
     NON_DEFAULT_WRITE_CONCERN = 1600
+    ZERO_WRITE_CONCERN_TIMEOUT = 1601
 
 
 ISSUE_MSG_MAP = {
@@ -453,6 +454,12 @@ ISSUE_MSG_MAP = {
         "severity": SEVERITY.MEDIUM,
         "title": "Non-Default Write Concern",
         "description": "The default write concern `w` is `{w}`, not `majority`. Writes using the default write concern may be acknowledged without majority durability. Consider setting the default write concern to `majority`.",
+    },
+    ISSUE.ZERO_WRITE_CONCERN_TIMEOUT: {
+        "id": ISSUE.ZERO_WRITE_CONCERN_TIMEOUT,
+        "severity": SEVERITY.LOW,
+        "title": "Zero Write Concern Timeout",
+        "description": "The default write concern has `wtimeout` set to `0`. Writes using the default write concern can be blocked indefinitely waiting for the write concern to be satisfied. Consider setting a non-zero `wtimeout`.",
     },
 }
 

@@ -15,14 +15,16 @@ from mongo_x_ray_hc.rules.base_rule import BaseRule
 class WriteConcernRule(BaseRule):
     def __init__(self, thresholds=None):
         super().__init__(thresholds)
-        self._rule_desc.append("Checks that the default write concern is set to `majority`.")
+        self._rule_desc.append("Checks the default write concern settings of the server.")
 
     def apply(self, data: dict, **kwargs) -> tuple[list, dict]:
-        """Check that the server's default write concern is `majority`.
+        """Check the server's default write concern settings.
 
         The default write concern `w` is `majority` by default; when it has been
         changed (e.g. to a numeric count), writes using the default write concern
-        may be acknowledged without majority durability.
+        may be acknowledged without majority durability. Additionally, a
+        `wtimeout` of `0` means writes can block indefinitely waiting for the
+        write concern to be satisfied.
 
         Args:
             data (dict): The serverStatus output.
@@ -42,6 +44,14 @@ class WriteConcernRule(BaseRule):
                 ISSUE.NON_DEFAULT_WRITE_CONCERN,
                 host=host,
                 params={"w": w},
+            )
+            result.append(issue)
+        # `0` is the default when the setting is absent: no timeout at all.
+        wtimeout = default_write_concern.get("wtimeout", 0)
+        if wtimeout == 0:
+            issue = create_issue(
+                ISSUE.ZERO_WRITE_CONCERN_TIMEOUT,
+                host=host,
             )
             result.append(issue)
         return result, data
