@@ -21,7 +21,6 @@ from mongo_x_ray_hc.parsers.query_targeting_parser import QueryTargetingParser
 from mongo_x_ray_hc.rules.cache_rule import CacheRule
 from mongo_x_ray_hc.rules.connections_rule import ConnectionsRule
 from mongo_x_ray_hc.rules.query_targeting_rule import QueryTargetingRule
-from mongo_x_ray_hc.rules.snapshot_window_rule import SnapshotWindowRule
 from mongo_x_ray_hc.rules.write_concern_rule import WriteConcernRule
 from mongo_x_ray_hc.shared import MAX_MONGOS_PING_LATENCY, discover_nodes, enum_all_nodes, enum_result_items
 
@@ -36,7 +35,6 @@ class ServerStatusItem(BaseItem):
         self._rules["connections"] = ConnectionsRule(config)
         self._rules["cache"] = CacheRule(config)
         self._rules["write_concern"] = WriteConcernRule(config)
-        self._rules["snapshot_window"] = SnapshotWindowRule(config)
 
     def test(self, *args, **kwargs):
         """
@@ -63,12 +61,7 @@ class ServerStatusItem(BaseItem):
                 if set_name != "mongos"
                 else ([], None)
             )
-            test_result4, _ = (
-                self._check_snapshot_window(node, host)
-                if set_name != "mongos"
-                else ([], None)
-            )
-            test_result = test_result1 + test_result2 + test_result3 + test_result4
+            test_result = test_result1 + test_result2 + test_result3
             self.append_test_results(test_result)
             raw_result = {"connections": raw_result1, "query_targeting": raw_result2, "server_status": server_status}
 
@@ -219,19 +212,6 @@ class ServerStatusItem(BaseItem):
             func_config_member=func_all_member,
         )
         self.captured_sample = [result1, result2]
-
-    def _check_snapshot_window(self, node, host):
-        """Check `minSnapshotHistoryWindowInSeconds` on a data-bearing node.
-
-        The parameter only exists on MongoDB 5.0 and above, so a missing
-        parameter (older server or unreachable option) is silently skipped.
-        """
-        try:
-            server_parameters = node["client"].admin.command("getParameter", "minSnapshotHistoryWindowInSeconds")
-        except Exception as exc:
-            self._logger.debug("Cannot read minSnapshotHistoryWindowInSeconds on %s: %s", host, exc)
-            server_parameters = {}
-        return self._rules["snapshot_window"].apply(server_parameters, extra_info={"host": host})
 
     @property
     def review_result_markdown(self) -> str:
