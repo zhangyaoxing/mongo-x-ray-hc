@@ -32,6 +32,7 @@ class ISSUE(enum.Enum):
     DELAYED_NON_HIDDEN_MEMBER = 304
     DELAYED_SECONDARY_MEMBER = 305
     ARBITER_MEMBER = 306
+    JOURNALING_DISABLED = 307
     # Sharded Cluster Issues
     IRRESPONSIVE_MONGOS = 400
     NO_ACTIVE_MONGOS = 401
@@ -173,6 +174,12 @@ ISSUE_MSG_MAP = {
         "severity": SEVERITY.HIGH,
         "title": "Arbiters / PSA Architecture",
         "description": "`{set_name}` member `{host}` is an arbiter. Arbiters and PSA architecture are generally not recommended.",
+    },
+    ISSUE.JOURNALING_DISABLED: {
+        "id": ISSUE.JOURNALING_DISABLED,
+        "severity": SEVERITY.HIGH,
+        "title": "Journaling Disabled",
+        "description": "`{set_name}` has `writeConcernMajorityJournalDefault` set to `false`. Majority writes are acknowledged without being written to the on-disk journal, which can lead to data loss in the event of a failover. Consider setting it to `true`.",
     },
     ISSUE.IRRESPONSIVE_MONGOS: {
         "id": ISSUE.IRRESPONSIVE_MONGOS,

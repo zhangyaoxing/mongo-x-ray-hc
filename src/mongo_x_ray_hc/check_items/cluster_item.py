@@ -14,6 +14,7 @@ from mongo_x_ray_hc.check_items.base_item import BaseItem
 from mongo_x_ray_hc.parsers.rs_details_parser import RSDetailsParser
 from mongo_x_ray_hc.parsers.rs_overview_parser import RSOverviewParser
 from mongo_x_ray_hc.parsers.sh_overview_parser import SHOverviewParser
+from mongo_x_ray_hc.rules.journaling_rule import JournalingRule
 from mongo_x_ray_hc.rules.oplog_window_rule import OplogWindowRule
 from mongo_x_ray_hc.rules.rs_config_rule import RSConfigRule
 from mongo_x_ray_hc.rules.rs_status_rule import RSStatusRule
@@ -32,6 +33,7 @@ class ClusterItem(BaseItem):
         self._name = "Cluster Information"
         self._rules["rs_status"] = RSStatusRule(config)
         self._rules["rs_config"] = RSConfigRule(config)
+        self._rules["journaling"] = JournalingRule(config)
         self._rules["shard_mongos"] = ShardMongosRule(config)
         self._rules["oplog_window"] = OplogWindowRule(config)
 
@@ -58,6 +60,8 @@ class ClusterItem(BaseItem):
         result, _ = self._rules["rs_status"].apply(replset_status)
         test_result.extend(result)
         result, _ = self._rules["rs_config"].apply(replset_config)
+        test_result.extend(result)
+        result, _ = self._rules["journaling"].apply(replset_config)
         test_result.extend(result)
 
         self.append_test_results(test_result)
