@@ -14,6 +14,7 @@ from mongo_x_ray_hc.check_items.base_item import BaseItem
 from mongo_x_ray_hc.parsers.rs_details_parser import RSDetailsParser
 from mongo_x_ray_hc.parsers.rs_overview_parser import RSOverviewParser
 from mongo_x_ray_hc.parsers.sh_overview_parser import SHOverviewParser
+from mongo_x_ray_hc.rules.chained_replication_rule import ChainedReplicationRule
 from mongo_x_ray_hc.rules.journaling_rule import JournalingRule
 from mongo_x_ray_hc.rules.oplog_window_rule import OplogWindowRule
 from mongo_x_ray_hc.rules.rs_config_rule import RSConfigRule
@@ -34,6 +35,7 @@ class ClusterItem(BaseItem):
         self._rules["rs_status"] = RSStatusRule(config)
         self._rules["rs_config"] = RSConfigRule(config)
         self._rules["journaling"] = JournalingRule(config)
+        self._rules["chained_replication"] = ChainedReplicationRule(config)
         self._rules["shard_mongos"] = ShardMongosRule(config)
         self._rules["oplog_window"] = OplogWindowRule(config)
 
@@ -62,6 +64,11 @@ class ClusterItem(BaseItem):
         result, _ = self._rules["rs_config"].apply(replset_config)
         test_result.extend(result)
         result, _ = self._rules["journaling"].apply(replset_config)
+        test_result.extend(result)
+        server_parameters = client.admin.command("getParameter", "enableOverrideClusterChainingSetting")
+        result, _ = self._rules["chained_replication"].apply(
+            {"config": replset_config, "server_parameters": server_parameters}
+        )
         test_result.extend(result)
 
         self.append_test_results(test_result)

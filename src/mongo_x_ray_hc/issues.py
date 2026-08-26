@@ -33,6 +33,7 @@ class ISSUE(enum.Enum):
     DELAYED_SECONDARY_MEMBER = 305
     ARBITER_MEMBER = 306
     JOURNALING_DISABLED = 307
+    CHAINED_REPLICATION_ALLOWED = 308
     # Sharded Cluster Issues
     IRRESPONSIVE_MONGOS = 400
     NO_ACTIVE_MONGOS = 401
@@ -180,6 +181,12 @@ ISSUE_MSG_MAP = {
         "severity": SEVERITY.HIGH,
         "title": "Journaling Disabled",
         "description": "`{set_name}` has `writeConcernMajorityJournalDefault` set to `false`. Majority writes are acknowledged without being written to the on-disk journal, which can lead to data loss in the event of a failover. Consider setting it to `true`.",
+    },
+    ISSUE.CHAINED_REPLICATION_ALLOWED: {
+        "id": ISSUE.CHAINED_REPLICATION_ALLOWED,
+        "severity": SEVERITY.LOW,
+        "title": "Chained Replication Allowed",
+        "description": "`{set_name}` allows chained replication (`settings.chainingAllowed` is `{chaining_allowed}`, `enableOverrideClusterChainingSetting` is `{override}`). Chained replication can increase replication lag and complicate failovers in cross-datacenter deployments. Consider setting `settings.chainingAllowed` to `false`.",
     },
     ISSUE.IRRESPONSIVE_MONGOS: {
         "id": ISSUE.IRRESPONSIVE_MONGOS,
