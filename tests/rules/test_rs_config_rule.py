@@ -208,3 +208,99 @@ def test_delayed_member():
     assert result[3]["title"] == ISSUE_MSG_MAP[ISSUE.DELAYED_SECONDARY_MEMBER]["title"]
     assert result[3]["host"] == "localhost:30019"
     assert _ == CONFIG_DELAYED_MEMBER
+
+
+CONFIG_IMPROPER_PRIORITY = {
+    "config": {
+        "_id": "shard01",
+        "version": 2,
+        "term": 558,
+        "members": [
+            {
+                "_id": 0,
+                "host": "localhost:30018",
+                "arbiterOnly": False,
+                "hidden": False,
+                "priority": 1,
+                "secondaryDelaySecs": 0,
+                "votes": 1,
+            },
+            {
+                "_id": 1,
+                "host": "localhost:30019",
+                "arbiterOnly": False,
+                "hidden": False,
+                "priority": 1,
+                "secondaryDelaySecs": 0,
+                "votes": 1,
+            },
+            {
+                "_id": 2,
+                "host": "localhost:30020",
+                "arbiterOnly": False,
+                "hidden": False,
+                "priority": 2,
+                "secondaryDelaySecs": 0,
+                "votes": 1,
+            },
+        ],
+    }
+}
+
+CONFIG_EQUAL_PRIORITY = {
+    "config": {
+        "_id": "shard01",
+        "version": 2,
+        "term": 558,
+        "members": [
+            {
+                "_id": 0,
+                "host": "localhost:30018",
+                "arbiterOnly": False,
+                "hidden": False,
+                "priority": 2,
+                "secondaryDelaySecs": 0,
+                "votes": 1,
+            },
+            {
+                "_id": 1,
+                "host": "localhost:30019",
+                "arbiterOnly": False,
+                "hidden": False,
+                "priority": 2,
+                "secondaryDelaySecs": 0,
+                "votes": 1,
+            },
+            {
+                "_id": 2,
+                "host": "localhost:30020",
+                "arbiterOnly": False,
+                "hidden": False,
+                "priority": 2,
+                "secondaryDelaySecs": 0,
+                "votes": 1,
+            },
+        ],
+    }
+}
+
+
+def test_improper_priority():
+    rule = RSConfigRule({})
+
+    result, _ = rule.apply(CONFIG_IMPROPER_PRIORITY, extra_info={"host": "cluster"})
+    assert result is not None
+    assert len(result) == 1
+    assert result[0]["id"] == ISSUE.IMPROPER_PRIORITY
+    assert result[0]["severity"] == SEVERITY.MEDIUM
+    assert result[0]["title"] == ISSUE_MSG_MAP[ISSUE.IMPROPER_PRIORITY]["title"]
+    assert result[0]["host"] == "localhost:30020"
+    assert _ == CONFIG_IMPROPER_PRIORITY
+
+
+def test_equal_priority_no_alert():
+    rule = RSConfigRule({})
+
+    result, _ = rule.apply(CONFIG_EQUAL_PRIORITY, extra_info={"host": "cluster"})
+    assert result == []
+    assert _ == CONFIG_EQUAL_PRIORITY

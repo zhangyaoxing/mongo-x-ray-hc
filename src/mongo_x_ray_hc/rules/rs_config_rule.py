@@ -83,4 +83,21 @@ class RSConfigRule(BaseRule):
                     params={"set_name": set_name, "host": member["host"]},
                 )
                 result.append(issue)
+
+        # A single member with a strictly higher priority than all others can
+        # trigger unnecessary elections when it goes down and comes back up.
+        members = data["config"]["members"]
+        if len(members) > 1:
+            max_priority = max(member.get("priority", 1) for member in members)
+            top_members = [
+                member for member in members if member.get("priority", 1) == max_priority and max_priority > 0
+            ]
+            if len(top_members) == 1:
+                host = top_members[0]["host"]
+                issue = create_issue(
+                    ISSUE.IMPROPER_PRIORITY,
+                    host=host,
+                    params={"set_name": set_name, "host": host, "priority": max_priority},
+                )
+                result.append(issue)
         return result, data

@@ -34,6 +34,7 @@ class ISSUE(enum.Enum):
     ARBITER_MEMBER = 306
     JOURNALING_DISABLED = 307
     CHAINED_REPLICATION_ALLOWED = 308
+    IMPROPER_PRIORITY = 309
     # Sharded Cluster Issues
     IRRESPONSIVE_MONGOS = 400
     NO_ACTIVE_MONGOS = 401
@@ -192,6 +193,12 @@ ISSUE_MSG_MAP = {
         "severity": SEVERITY.LOW,
         "title": "Chained Replication Allowed",
         "description": "`{set_name}` allows chained replication (`settings.chainingAllowed` is `{chaining_allowed}`, `enableOverrideClusterChainingSetting` is `{override}`). Chained replication can increase replication lag and complicate failovers in cross-datacenter deployments. Consider setting `settings.chainingAllowed` to `false`.",
+    },
+    ISSUE.IMPROPER_PRIORITY: {
+        "id": ISSUE.IMPROPER_PRIORITY,
+        "severity": SEVERITY.MEDIUM,
+        "title": "Improper Priority Setting",
+        "description": "`{set_name}` member `{host}` has a higher priority (`{priority}`) than all other members. When this member goes down and comes back up, it can trigger unnecessary elections. Consider using equal priorities across members.",
     },
     ISSUE.IRRESPONSIVE_MONGOS: {
         "id": ISSUE.IRRESPONSIVE_MONGOS,
