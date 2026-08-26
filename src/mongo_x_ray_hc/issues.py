@@ -92,6 +92,8 @@ class ISSUE(enum.Enum):
     # Write Concern Issues
     NON_DEFAULT_WRITE_CONCERN = 1600
     ZERO_WRITE_CONCERN_TIMEOUT = 1601
+    # Snapshot Window Issues
+    HIGH_MIN_SNAPSHOT_WINDOW = 1700
 
 
 ISSUE_MSG_MAP = {
@@ -453,13 +455,19 @@ ISSUE_MSG_MAP = {
         "id": ISSUE.NON_DEFAULT_WRITE_CONCERN,
         "severity": SEVERITY.MEDIUM,
         "title": "Non-Default Write Concern",
-        "description": "The default write concern `w` is `{w}`, not `majority`. Writes using the default write concern may be acknowledged without majority durability. Consider setting the default write concern to `majority`.",
+        "description": "The default write concern `w` is `majority`, not `{w}`. Writes using the customized write concern may be acknowledged without majority durability. Consider setting the default write concern to `majority`.",
     },
     ISSUE.ZERO_WRITE_CONCERN_TIMEOUT: {
         "id": ISSUE.ZERO_WRITE_CONCERN_TIMEOUT,
         "severity": SEVERITY.LOW,
         "title": "Zero Write Concern Timeout",
         "description": "The default write concern has `wtimeout` set to `0`. Writes using the default write concern can be blocked indefinitely waiting for the write concern to be satisfied. Consider setting a non-zero `wtimeout`.",
+    },
+    ISSUE.HIGH_MIN_SNAPSHOT_WINDOW: {
+        "id": ISSUE.HIGH_MIN_SNAPSHOT_WINDOW,
+        "severity": SEVERITY.MEDIUM,
+        "title": "High minSnapshotHistoryWindowInSeconds",
+        "description": "`minSnapshotHistoryWindowInSeconds` is set to `{value}` seconds, above the recommended `5` seconds on data-bearing nodes. A high value can cause performance issues on MongoDB 5.0 and above by retaining excessive snapshot history in the cache. Consider setting it to `5` seconds if the snapshot read concern is not needed.",
     },
 }
 
