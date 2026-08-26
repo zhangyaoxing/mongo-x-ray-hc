@@ -96,6 +96,8 @@ class ISSUE(enum.Enum):
     # Server Parameter Issues
     HIGH_MIN_SNAPSHOT_WINDOW = 1700
     SBE_ENABLED = 1701
+    FTDC_DISABLED = 1702
+    FTDC_SAMPLES_TOO_SMALL = 1703
 
 
 ISSUE_MSG_MAP = {
@@ -480,8 +482,20 @@ ISSUE_MSG_MAP = {
     ISSUE.SBE_ENABLED: {
         "id": ISSUE.SBE_ENABLED,
         "severity": SEVERITY.MEDIUM,
-        "title": "SBE Enabled",
+        "title": "SBE Performance Degradation",
         "description": "MongoDB {version} has the slot-based execution engine (SBE) enabled (`{parameter}` is `{value}`). SBE is known to cause performance issues on MongoDB 6.0 and 7.0. Consider disabling it by setting `internalQueryForceClassicEngine` to `true` (6.0) or `internalQueryFrameworkControl` to `forceClassicEngine` (7.0).",
+    },
+    ISSUE.FTDC_DISABLED: {
+        "id": ISSUE.FTDC_DISABLED,
+        "severity": SEVERITY.HIGH,
+        "title": "FTDC Disabled",
+        "description": "`diagnosticDataCollectionEnabled` is set to `false`. Full-Time Diagnostics Data Capture (FTDC) is disabled, which prevents collection of diagnostic data needed for troubleshooting performance issues. Consider enabling it.",
+    },
+    ISSUE.FTDC_SAMPLES_TOO_SMALL: {
+        "id": ISSUE.FTDC_SAMPLES_TOO_SMALL,
+        "severity": SEVERITY.MEDIUM,
+        "title": "FTDC Size Too Small",
+        "description": "`diagnosticDataCollectionSamplesPerChunk` is `{value}`, below the default `300`. The FTDC sample rate may be too low to capture useful diagnostic data. Consider increasing it.",
     },
 }
 

@@ -12,6 +12,7 @@ from mongo_x_ray.utils import yellow
 from mongo_x_ray.version import Version
 
 from mongo_x_ray_hc.check_items.base_item import BaseItem
+from mongo_x_ray_hc.rules.ftdc_rule import FtdcRule
 from mongo_x_ray_hc.rules.sbe_rule import SbeRule
 from mongo_x_ray_hc.rules.snapshot_window_rule import SnapshotWindowRule
 from mongo_x_ray_hc.shared import MAX_MONGOS_PING_LATENCY, discover_nodes, enum_all_nodes, enum_result_items
@@ -28,6 +29,7 @@ class ServerParametersItem(BaseItem):
         self._name = "Server Parameters"
         self._rules["snapshot_window"] = SnapshotWindowRule(config)
         self._rules["sbe"] = SbeRule(config)
+        self._rules["ftdc"] = FtdcRule(config)
 
     def test(self, *args, **kwargs):
         """Collect `getParameter: "*"` on every node and run parameter-level rules."""
@@ -63,6 +65,8 @@ class ServerParametersItem(BaseItem):
                 result, _ = self._rules["sbe"].apply(
                     server_parameters, extra_info={"host": host, "version": version}
                 )
+                test_result.extend(result)
+                result, _ = self._rules["ftdc"].apply(server_parameters, extra_info={"host": host})
                 test_result.extend(result)
             self.append_test_results(test_result)
             return test_result, {"server_parameters": server_parameters}
