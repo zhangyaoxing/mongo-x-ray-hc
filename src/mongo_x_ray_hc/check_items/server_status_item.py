@@ -21,6 +21,7 @@ from mongo_x_ray_hc.parsers.query_targeting_parser import QueryTargetingParser
 from mongo_x_ray_hc.rules.cache_rule import CacheRule
 from mongo_x_ray_hc.rules.connections_rule import ConnectionsRule
 from mongo_x_ray_hc.rules.query_targeting_rule import QueryTargetingRule
+from mongo_x_ray_hc.rules.write_concern_rule import WriteConcernRule
 from mongo_x_ray_hc.shared import MAX_MONGOS_PING_LATENCY, discover_nodes, enum_all_nodes, enum_result_items
 
 SERVER_STATUS_INTERVAL = 5
@@ -33,6 +34,7 @@ class ServerStatusItem(BaseItem):
         self._rules["query_targeting"] = QueryTargetingRule(config)
         self._rules["connections"] = ConnectionsRule(config)
         self._rules["cache"] = CacheRule(config)
+        self._rules["write_concern"] = WriteConcernRule(config)
 
     def test(self, *args, **kwargs):
         """
@@ -54,7 +56,12 @@ class ServerStatusItem(BaseItem):
                 if set_name != "mongos"
                 else ([], None)
             )
-            test_result = test_result1 + test_result2
+            test_result3, _ = (
+                self._rules["write_concern"].apply(server_status, extra_info={"host": host})
+                if set_name != "mongos"
+                else ([], None)
+            )
+            test_result = test_result1 + test_result2 + test_result3
             self.append_test_results(test_result)
             raw_result = {"connections": raw_result1, "query_targeting": raw_result2, "server_status": server_status}
 

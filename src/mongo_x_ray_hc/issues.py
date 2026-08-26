@@ -89,6 +89,8 @@ class ISSUE(enum.Enum):
     FS_TYPE = 1503
     FS_TYPE_EXT4 = 1504
     FS_TYPE_EXT4_NOATIME = 1505
+    # Write Concern Issues
+    NON_DEFAULT_WRITE_CONCERN = 1600
 
 
 ISSUE_MSG_MAP = {
@@ -445,6 +447,12 @@ ISSUE_MSG_MAP = {
         "severity": SEVERITY.MEDIUM,
         "title": "Filesystem Configuration Issue",
         "description": "When using `ext4` for `dbPath`, `noatime` option is recommended to avoid performance issues.",
+    },
+    ISSUE.NON_DEFAULT_WRITE_CONCERN: {
+        "id": ISSUE.NON_DEFAULT_WRITE_CONCERN,
+        "severity": SEVERITY.MEDIUM,
+        "title": "Non-Default Write Concern",
+        "description": "The default write concern `w` is `{w}`, not `majority`. Writes using the default write concern may be acknowledged without majority durability. Consider setting the default write concern to `majority`.",
     },
 }
 
