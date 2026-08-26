@@ -95,6 +95,8 @@ class ISSUE(enum.Enum):
     ZERO_WRITE_CONCERN_TIMEOUT = 1601
     # Snapshot Window Issues
     HIGH_MIN_SNAPSHOT_WINDOW = 1700
+    # SBE Issues
+    SBE_ENABLED = 1800
 
 
 ISSUE_MSG_MAP = {
@@ -475,6 +477,12 @@ ISSUE_MSG_MAP = {
         "severity": SEVERITY.MEDIUM,
         "title": "High minSnapshotHistoryWindowInSeconds",
         "description": "`minSnapshotHistoryWindowInSeconds` is set to `{value}` seconds, above the recommended `5` seconds on data-bearing nodes. A high value can cause performance issues on MongoDB 5.0 and above by retaining excessive snapshot history in the cache. Consider setting it to `5` seconds if the snapshot read concern is not needed.",
+    },
+    ISSUE.SBE_ENABLED: {
+        "id": ISSUE.SBE_ENABLED,
+        "severity": SEVERITY.MEDIUM,
+        "title": "SBE Enabled",
+        "description": "MongoDB {version} has the slot-based execution engine (SBE) enabled (`{parameter}` is `{value}`). SBE is known to cause performance issues on MongoDB 6.0 and 7.0. Consider disabling it by setting `internalQueryForceClassicEngine` to `true` (6.0) or `internalQueryFrameworkControl` to `forceClassicEngine` (7.0).",
     },
 }
 
