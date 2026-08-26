@@ -93,10 +93,9 @@ class ISSUE(enum.Enum):
     # Write Concern Issues
     NON_DEFAULT_WRITE_CONCERN = 1600
     ZERO_WRITE_CONCERN_TIMEOUT = 1601
-    # Snapshot Window Issues
+    # Server Parameter Issues
     HIGH_MIN_SNAPSHOT_WINDOW = 1700
-    # SBE Issues
-    SBE_ENABLED = 1800
+    SBE_ENABLED = 1701
 
 
 ISSUE_MSG_MAP = {
