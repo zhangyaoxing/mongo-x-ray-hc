@@ -67,7 +67,7 @@ class ClusterItem(BaseItem):
         test_result.extend(result)
         server_parameters = client.admin.command("getParameter", "enableOverrideClusterChainingSetting")
         result, _ = self._rules["chained_replication"].apply(
-            {"config": replset_config, "server_parameters": server_parameters}
+            {"config": replset_config["config"], "server_parameters": server_parameters}
         )
         test_result.extend(result)
 
