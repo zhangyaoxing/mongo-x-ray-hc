@@ -11,7 +11,6 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 from mongo_x_ray.issues import ISSUE, ISSUE_MSG_MAP
 from mongo_x_ray.shared import SEVERITY
 from mongo_x_ray.version import Version
-
 from mongo_x_ray_hc.rules.sbe_rule import SbeRule
 
 V6 = Version.parse("6.0.30")

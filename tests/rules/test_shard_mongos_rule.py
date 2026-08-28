@@ -13,7 +13,6 @@ from datetime import datetime, timezone
 from mongo_x_ray.issues import ISSUE, ISSUE_MSG_MAP
 from mongo_x_ray.shared import SEVERITY
 from mongo_x_ray.version import Version
-
 from mongo_x_ray_hc.rules.shard_mongos_rule import ShardMongosRule
 
 MONGOS_IRRESPONSIVE = [

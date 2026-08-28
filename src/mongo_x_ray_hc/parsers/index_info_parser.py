@@ -1,5 +1,4 @@
 from mongo_x_ray.utils import as_utc_datetime, escape_markdown, format_json_md
-
 from mongo_x_ray_hc.parsers.base_parser import BaseParser
 
 

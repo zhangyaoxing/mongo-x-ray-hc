@@ -10,7 +10,6 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 
 from mongo_x_ray.issues import ISSUE, ISSUE_MSG_MAP
 from mongo_x_ray.shared import SEVERITY
-
 from mongo_x_ray_hc.rules.fragmentation_rule import FragmentationRule
 
 DATA_WITH_HIGH_FRAGMENTATION = {

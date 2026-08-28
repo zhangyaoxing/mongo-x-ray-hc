@@ -9,7 +9,6 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 
 from mongo_x_ray.issues import ISSUE, create_issue
-
 from mongo_x_ray_hc.rules.base_rule import BaseRule
 from mongo_x_ray_hc.shared import MAX_MONGOS_PING_LATENCY
 

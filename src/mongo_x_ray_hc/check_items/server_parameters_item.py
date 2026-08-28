@@ -10,7 +10,6 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 
 from mongo_x_ray.utils import yellow
 from mongo_x_ray.version import Version
-
 from mongo_x_ray_hc.check_items.base_item import BaseItem
 from mongo_x_ray_hc.rules.ftdc_rule import FtdcRule
 from mongo_x_ray_hc.rules.sbe_rule import SbeRule

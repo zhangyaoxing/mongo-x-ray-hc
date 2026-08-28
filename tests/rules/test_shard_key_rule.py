@@ -9,7 +9,6 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 
 from mongo_x_ray.issues import ISSUE
-
 from mongo_x_ray_hc.rules.shard_key_rule import ShardKeyRule
 
 DATA_IMPROPER_SHARD_KEY = {

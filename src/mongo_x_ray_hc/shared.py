@@ -14,8 +14,9 @@ import urllib.parse
 from datetime import datetime, timezone
 from typing import Any
 
-from mongo_x_ray.utils import red
 from pymongo import MongoClient
+
+from mongo_x_ray.utils import red
 
 logger = logging.getLogger(__name__)
 MEMBER_STATE = {

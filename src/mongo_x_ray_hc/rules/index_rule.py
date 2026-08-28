@@ -13,7 +13,6 @@ from typing import Optional
 
 from mongo_x_ray.issues import ISSUE, create_issue
 from mongo_x_ray.utils import as_utc_datetime
-
 from mongo_x_ray_hc.rules.base_rule import BaseRule
 
 

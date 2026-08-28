@@ -1,5 +1,4 @@
 from mongo_x_ray.utils import format_size
-
 from mongo_x_ray_hc.parsers.base_parser import BaseParser
 
 

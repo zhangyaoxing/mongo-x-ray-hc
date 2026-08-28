@@ -16,10 +16,10 @@ from abc import ABC, abstractmethod
 from typing import Optional, Union
 
 from bson import json_util
+
 from mongo_x_ray.parsers.base_parser import TABLE_ALIGNMENT
 from mongo_x_ray.shared import SEVERITY, to_json
 from mongo_x_ray.utils import env, get_script_path, to_ejson
-
 from mongo_x_ray_hc.rules.base_rule import BaseRule
 
 

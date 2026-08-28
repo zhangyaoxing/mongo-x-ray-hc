@@ -8,9 +8,9 @@ YOU ARE RESPONSIBLE FOR TESTING, VALIDATING, AND SECURING THIS CODE WITHIN YOUR 
 THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 
-from mongo_x_ray.utils import yellow
 from pymongo.errors import OperationFailure
 
+from mongo_x_ray.utils import yellow
 from mongo_x_ray_hc.check_items.base_item import BaseItem
 from mongo_x_ray_hc.parsers.base_parser import BaseParser
 from mongo_x_ray_hc.parsers.coll_overview_parser import CollOverviewParser

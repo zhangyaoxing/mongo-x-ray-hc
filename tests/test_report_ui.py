@@ -19,10 +19,10 @@ import pytest
 
 pytest.importorskip("playwright")
 
-from mongo_x_ray.utils import load_config
 from pymongo import MongoClient
 from pymongo.uri_parser import parse_uri
 
+from mongo_x_ray.utils import load_config
 from mongo_x_ray_hc.framework import Framework as HealthCheckFramework
 
 # Playwright fixtures are named after their injected value (browser, page,

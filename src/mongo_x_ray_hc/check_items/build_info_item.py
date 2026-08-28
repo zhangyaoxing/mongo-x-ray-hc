@@ -12,7 +12,6 @@ from typing import Optional
 
 from mongo_x_ray.utils import yellow
 from mongo_x_ray.version import Version
-
 from mongo_x_ray_hc.check_items.base_item import BaseItem
 from mongo_x_ray_hc.parsers.build_info_parser import BuildInfoParser
 from mongo_x_ray_hc.rules.version_eol_rule import VersionEOLRule

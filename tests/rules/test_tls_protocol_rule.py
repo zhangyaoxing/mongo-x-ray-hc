@@ -10,7 +10,6 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 
 from mongo_x_ray.issues import ISSUE, ISSUE_MSG_MAP
 from mongo_x_ray.shared import SEVERITY
-
 from mongo_x_ray_hc.rules.tls_protocol_rule import TlsProtocolRule
 
 CMDLINE_NO_DISABLED = {"parsed": {"net": {"tls": {}}}}

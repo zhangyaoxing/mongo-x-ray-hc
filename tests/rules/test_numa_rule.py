@@ -11,7 +11,6 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 from mongo_x_ray.issues import ISSUE
 from mongo_x_ray.shared import SEVERITY
 from mongo_x_ray.version import Version
-
 from mongo_x_ray_hc.rules.numa_rule import NumaRule
 
 DATA_DISABLED = {"system": {"numaEnabled": False}}

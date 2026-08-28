@@ -1,5 +1,4 @@
 from mongo_x_ray.utils import is_number, to_ejson
-
 from mongo_x_ray_hc.parsers.base_parser import BaseParser
 
 

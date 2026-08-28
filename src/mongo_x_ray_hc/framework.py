@@ -15,7 +15,6 @@ from typing import TextIO
 from mongo_x_ray.framework import BaseFramework
 from mongo_x_ray.shared import str_to_md_id
 from mongo_x_ray.utils import bold, green, load_classes, yellow
-
 from mongo_x_ray_hc.shared import irresponsive_nodes
 
 logger = logging.getLogger(__name__)

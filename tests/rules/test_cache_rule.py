@@ -9,7 +9,6 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 
 from mongo_x_ray.issues import ISSUE  # type: ignore
-
 from mongo_x_ray_hc.rules.cache_rule import CacheRule  # type: ignore
 
 DATA_BASE_SERVER_STATUS = {

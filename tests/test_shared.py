@@ -13,8 +13,8 @@ from pathlib import Path
 
 import pytest
 from bson import json_util
-from mongo_x_ray.shared import SEVERITY, str_to_md_id, to_json
 
+from mongo_x_ray.shared import SEVERITY, str_to_md_id, to_json
 from mongo_x_ray_hc.shared import enum_all_nodes, enum_result_items
 
 # The enumeration callbacks below convert any failure into pytest.fail so an

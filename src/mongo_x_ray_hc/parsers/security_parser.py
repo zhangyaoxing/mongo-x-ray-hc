@@ -1,7 +1,6 @@
 from typing import Any
 
 from mongo_x_ray.utils import escape_markdown, to_ejson
-
 from mongo_x_ray_hc.parsers.base_parser import BaseParser
 
 

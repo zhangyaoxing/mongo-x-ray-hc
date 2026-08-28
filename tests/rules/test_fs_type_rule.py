@@ -10,7 +10,6 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 
 from mongo_x_ray.issues import ISSUE
 from mongo_x_ray.shared import SEVERITY
-
 from mongo_x_ray_hc.rules.fs_type_rule import FSTypeRule
 
 
