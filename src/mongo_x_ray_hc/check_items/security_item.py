@@ -14,6 +14,7 @@ from mongo_x_ray_hc.check_items.base_item import BaseItem
 from mongo_x_ray_hc.parsers.base_parser import BaseParser
 from mongo_x_ray_hc.parsers.security_parser import SecurityParser
 from mongo_x_ray_hc.rules.security_rule import SecurityRule
+from mongo_x_ray_hc.rules.tls_protocol_rule import TlsProtocolRule
 from mongo_x_ray_hc.shared import MAX_MONGOS_PING_LATENCY, discover_nodes, enum_all_nodes, enum_result_items
 
 
@@ -26,6 +27,7 @@ class SecurityItem(BaseItem):
         super().__init__(output_folder, config)
         self._name = "Authentication & Security"
         self._rules["security"] = SecurityRule(config)
+        self._rules["tls_protocol"] = TlsProtocolRule(config)
 
     def test(self, *args, **kwargs):
         client = kwargs.get("client")
@@ -45,6 +47,8 @@ class SecurityItem(BaseItem):
                 return None, None
             raw_result = client.admin.command("getCmdLineOpts")
             test_result, _ = self._rules["security"].apply(raw_result, extra_info={"host": host})
+            self.append_test_results(test_result)
+            test_result, _ = self._rules["tls_protocol"].apply(raw_result, extra_info={"host": host})
             self.append_test_results(test_result)
 
             return test_result, raw_result

@@ -67,6 +67,8 @@ class ISSUE(enum.Enum):
     AUDITING_DISABLED = 1006
     ENCRYPTION_AT_REST_DISABLED = 1007
     ENCRYPTION_AT_REST_USING_KEYFILE = 1008
+    TLS_UNSAFE_PROTOCOLS_ENABLED = 1009
+    UNRECOGNIZABLE_TLS_PROTOCOL = 1010
     # Query Targeting Issues
     POOR_QUERY_TARGETING_KEYS = 1100
     POOR_QUERY_TARGETING_OBJECTS = 1101
@@ -352,6 +354,18 @@ ISSUE_MSG_MAP = {
         "severity": SEVERITY.HIGH,
         "title": "Encryption at Rest Using Keyfile",
         "description": "Encryption at rest is enabled using a keyfile. This is not safe in general. Ensure that the keyfile is securely managed.",
+    },
+    ISSUE.TLS_UNSAFE_PROTOCOLS_ENABLED: {
+        "id": ISSUE.TLS_UNSAFE_PROTOCOLS_ENABLED,
+        "severity": SEVERITY.MEDIUM,
+        "title": "Insecure TLS Protocols Enabled",
+        "description": "TLS protocols `{protocols}` are not disabled. TLS1_0 and TLS1_1 are considered insecure. Add them to `net.tls.disabledProtocols`.",
+    },
+    ISSUE.UNRECOGNIZABLE_TLS_PROTOCOL: {
+        "id": ISSUE.UNRECOGNIZABLE_TLS_PROTOCOL,
+        "severity": SEVERITY.LOW,
+        "title": "Unrecognizable TLS Protocol",
+        "description": "`net.tls.disabledProtocols` contains unrecognized protocols: `{protocols}`. Supported values are `TLS1_0`, `TLS1_1`, `TLS1_2` and `TLS1_3`.",
     },
     ISSUE.POOR_QUERY_TARGETING_KEYS: {
         "id": ISSUE.POOR_QUERY_TARGETING_KEYS,
