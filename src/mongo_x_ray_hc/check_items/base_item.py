@@ -116,8 +116,8 @@ class BaseItem(ABC):
             if risk:
                 risk_id = html_mod.escape(str(risk.get("id", "")))
                 risk_name = html_mod.escape(str(risk.get("name", ""))).replace("\r\n", "<br>").replace("\n", "<br>")
-                risk_desc = html_mod.escape(str(risk.get("description", ""))).replace("\r\n", "<br>").replace(
-                    "\n", "<br>"
+                risk_desc = (
+                    html_mod.escape(str(risk.get("description", ""))).replace("\r\n", "<br>").replace("\n", "<br>")
                 )
                 category_cell += (
                     f' <span class="risk-badge">RISK-{risk_id}'

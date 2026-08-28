@@ -8,7 +8,8 @@ YOU ARE RESPONSIBLE FOR TESTING, VALIDATING, AND SECURING THIS CODE WITHIN YOUR 
 THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 
-from mongo_x_ray_hc.issues import ISSUE, create_issue
+from mongo_x_ray.issues import ISSUE, create_issue
+
 from mongo_x_ray_hc.rules.base_rule import BaseRule
 
 # The default value of diagnosticDataCollectionSamplesPerChunk.
@@ -49,7 +50,5 @@ class FtdcRule(BaseRule):
         except (TypeError, ValueError):
             too_small = False
         if too_small:
-            result.append(
-                create_issue(ISSUE.FTDC_SAMPLES_TOO_SMALL, host=host, params={"value": samples})
-            )
+            result.append(create_issue(ISSUE.FTDC_SAMPLES_TOO_SMALL, host=host, params={"value": samples}))
         return result, data

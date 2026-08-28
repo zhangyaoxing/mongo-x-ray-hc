@@ -8,9 +8,9 @@ YOU ARE RESPONSIBLE FOR TESTING, VALIDATING, AND SECURING THIS CODE WITHIN YOUR 
 THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 
+from mongo_x_ray.issues import ISSUE, ISSUE_MSG_MAP
 from mongo_x_ray.shared import SEVERITY
 
-from mongo_x_ray_hc.issues import ISSUE, ISSUE_MSG_MAP
 from mongo_x_ray_hc.rules.chained_replication_rule import ChainedReplicationRule
 
 RS_CONFIG = {
@@ -50,16 +50,12 @@ RS_CONFIG = {
     }
 }
 
-CONFIG_CHAINING_ALLOWED = {
-    "config": {**RS_CONFIG["config"], "settings": {"chainingAllowed": True}}
-}
+CONFIG_CHAINING_ALLOWED = {"config": {**RS_CONFIG["config"], "settings": {"chainingAllowed": True}}}
 
 # chainingAllowed defaults to true when missing from the config.
 CONFIG_CHAINING_NOT_SET = {"config": {**RS_CONFIG["config"]}}
 
-CONFIG_CHAINING_DISABLED = {
-    "config": {**RS_CONFIG["config"], "settings": {"chainingAllowed": False}}
-}
+CONFIG_CHAINING_DISABLED = {"config": {**RS_CONFIG["config"], "settings": {"chainingAllowed": False}}}
 
 SERVER_PARAMETERS_OVERRIDE_ENABLED = {"enableOverrideClusterChainingSetting": True}
 

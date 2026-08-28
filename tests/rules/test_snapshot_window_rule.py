@@ -8,9 +8,9 @@ YOU ARE RESPONSIBLE FOR TESTING, VALIDATING, AND SECURING THIS CODE WITHIN YOUR 
 THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 
+from mongo_x_ray.issues import ISSUE, ISSUE_MSG_MAP
 from mongo_x_ray.shared import SEVERITY
 
-from mongo_x_ray_hc.issues import ISSUE, ISSUE_MSG_MAP
 from mongo_x_ray_hc.rules.snapshot_window_rule import SnapshotWindowRule
 
 SERVER_PARAMETERS_DEFAULT = {"minSnapshotHistoryWindowInSeconds": 300}
@@ -80,8 +80,6 @@ def test_snapshot_window_dict_shape():
 def test_snapshot_window_string_value():
     rule = SnapshotWindowRule({})
 
-    result, _ = rule.apply(
-        {"minSnapshotHistoryWindowInSeconds": "300"}, extra_info={"host": "localhost:27017"}
-    )
+    result, _ = rule.apply({"minSnapshotHistoryWindowInSeconds": "300"}, extra_info={"host": "localhost:27017"})
     assert len(result) == 1
     assert result[0]["id"] == ISSUE.HIGH_MIN_SNAPSHOT_WINDOW

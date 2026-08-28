@@ -62,9 +62,7 @@ class ServerParametersItem(BaseItem):
                     except Exception as exc:
                         self._logger.debug("Cannot read buildInfo on %s: %s", host, exc)
                         version = None
-                result, _ = self._rules["sbe"].apply(
-                    server_parameters, extra_info={"host": host, "version": version}
-                )
+                result, _ = self._rules["sbe"].apply(server_parameters, extra_info={"host": host, "version": version})
                 test_result.extend(result)
                 result, _ = self._rules["ftdc"].apply(server_parameters, extra_info={"host": host})
                 test_result.extend(result)

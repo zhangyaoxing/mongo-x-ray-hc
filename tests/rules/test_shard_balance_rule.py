@@ -8,7 +8,8 @@ YOU ARE RESPONSIBLE FOR TESTING, VALIDATING, AND SECURING THIS CODE WITHIN YOUR 
 THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 
-from mongo_x_ray_hc.issues import ISSUE
+from mongo_x_ray.issues import ISSUE
+
 from mongo_x_ray_hc.rules.shard_balance_rule import ShardBalanceRule
 
 DATA_IMBALANCED_SHARDING = {

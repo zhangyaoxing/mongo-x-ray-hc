@@ -8,9 +8,9 @@ YOU ARE RESPONSIBLE FOR TESTING, VALIDATING, AND SECURING THIS CODE WITHIN YOUR 
 THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 
+from mongo_x_ray.issues import ISSUE, ISSUE_MSG_MAP
 from mongo_x_ray.shared import SEVERITY
 
-from mongo_x_ray_hc.issues import ISSUE, ISSUE_MSG_MAP
 from mongo_x_ray_hc.rules.write_concern_rule import WriteConcernRule
 
 SERVER_STATUS_CLEAN = {
@@ -54,7 +54,10 @@ SERVER_STATUS_NON_DEFAULT_WITH_TIMEOUT = {
 SERVER_STATUS_NO_WRITE_CONCERN = {"process": "mongod"}
 
 # defaultRWConcern present but no defaultWriteConcern -> majority default, no timeout.
-SERVER_STATUS_NO_DEFAULT_WRITE_CONCERN = {"process": "mongod", "defaultRWConcern": {"defaultReadConcern": {"level": "local"}}}
+SERVER_STATUS_NO_DEFAULT_WRITE_CONCERN = {
+    "process": "mongod",
+    "defaultRWConcern": {"defaultReadConcern": {"level": "local"}},
+}
 
 
 def test_write_concern_clean():

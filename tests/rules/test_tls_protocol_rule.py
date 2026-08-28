@@ -8,20 +8,16 @@ YOU ARE RESPONSIBLE FOR TESTING, VALIDATING, AND SECURING THIS CODE WITHIN YOUR 
 THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 
+from mongo_x_ray.issues import ISSUE, ISSUE_MSG_MAP
 from mongo_x_ray.shared import SEVERITY
 
-from mongo_x_ray_hc.issues import ISSUE, ISSUE_MSG_MAP
 from mongo_x_ray_hc.rules.tls_protocol_rule import TlsProtocolRule
 
 CMDLINE_NO_DISABLED = {"parsed": {"net": {"tls": {}}}}
 
-CMDLINE_DISABLED_TLS10_11 = {
-    "parsed": {"net": {"tls": {"disabledProtocols": "TLS1_0,TLS1_1"}}}
-}
+CMDLINE_DISABLED_TLS10_11 = {"parsed": {"net": {"tls": {"disabledProtocols": "TLS1_0,TLS1_1"}}}}
 
-CMDLINE_DISABLED_TLS10_11_LIST = {
-    "parsed": {"net": {"tls": {"disabledProtocols": ["TLS1_0", "TLS1_1"]}}}
-}
+CMDLINE_DISABLED_TLS10_11_LIST = {"parsed": {"net": {"tls": {"disabledProtocols": ["TLS1_0", "TLS1_1"]}}}}
 
 CMDLINE_DISABLED_ALL = {"parsed": {"net": {"tls": {"disabledProtocols": "TLS1_0,TLS1_1,TLS1_2,TLS1_3"}}}}
 
