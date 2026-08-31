@@ -1,6 +1,7 @@
 # mongo-x-ray-hc
 
 [![CI](https://github.com/zhangyaoxing/mongo-x-ray-hc/actions/workflows/ci.yml/badge.svg)](https://github.com/zhangyaoxing/mongo-x-ray-hc/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/mongo-x-ray-hc.svg)](https://pypi.org/project/mongo-x-ray-hc/)
 
 Health check analysis plugin for [x-ray](https://github.com/mongodb-ps/ce-mongo-x-ray).
 
