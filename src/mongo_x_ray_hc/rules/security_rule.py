@@ -8,6 +8,8 @@ YOU ARE RESPONSIBLE FOR TESTING, VALIDATING, AND SECURING THIS CODE WITHIN YOUR 
 THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 
+import os
+
 from mongo_x_ray.issues import ISSUE, create_issue
 from mongo_x_ray_hc.rules.base_rule import BaseRule
 
@@ -40,6 +42,9 @@ class SecurityRule(BaseRule):
         port = net.get("port", None)
         tls_enabled = net.get("tls", {}).get("mode", None)
         audit = "enabled" if audit_log.get("destination", None) is not None else "disabled"
+        # mongos has no storage layer, so encryption at rest never applies to it.
+        argv = data.get("argv", [])
+        is_mongos = any(os.path.basename(arg) == "mongos" for arg in argv if arg)
         ear_enabled = security_settings.get("enableEncryption", False)
         ear_keyfile = security_settings.get("encryptionKeyFile", None)
         if authorization != "enabled":
@@ -63,7 +68,7 @@ class SecurityRule(BaseRule):
         if audit == "disabled":
             issue = create_issue(ISSUE.AUDITING_DISABLED, host=host)
             test_result.append(issue)
-        if not ear_enabled:
+        if not ear_enabled and not is_mongos:
             issue = create_issue(ISSUE.ENCRYPTION_AT_REST_DISABLED, host=host)
             test_result.append(issue)
         if ear_keyfile is not None:

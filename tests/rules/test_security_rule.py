@@ -121,3 +121,42 @@ def test_security_rule_no_issues():
     results, _ = rule.apply(DATA_WITH_NO_ISSUES)
 
     assert len(results) == 0
+
+
+MONGOS_CMDLINE = {
+    "argv": ["/usr/bin/mongos", "--configdb", "cfg/rs:27019"],
+    "parsed": {
+        "net": {"port": 27017, "bindIp": "0.0.0.0"},
+        "sharding": {"configDB": "cfg/rs:27019"},
+        "processManagement": {"fork": True},
+        "systemLog": {"destination": "file", "path": "/var/log/mongos.log"},
+    },
+}
+
+MONGOD_CMDLINE = {
+    "argv": ["/usr/bin/mongod", "--replSet", "rs0"],
+    "parsed": {
+        "net": {"port": 27017, "bindIp": "0.0.0.0"},
+        "storage": {"dbPath": "/data/db"},
+        "replication": {"replSet": "rs0"},
+    },
+}
+
+
+def test_security_rule_mongos_skips_encryption_at_rest():
+    rule = SecurityRule({})
+    results, _ = rule.apply(MONGOS_CMDLINE)
+
+    issue_ids = {issue["id"] for issue in results}
+    assert ISSUE.ENCRYPTION_AT_REST_DISABLED not in issue_ids
+    # Other mongos checks still run.
+    assert ISSUE.AUTHORIZATION_DISABLED in issue_ids
+    assert ISSUE.TLS_DISABLED in issue_ids
+
+
+def test_security_rule_mongod_reports_encryption_at_rest():
+    rule = SecurityRule({})
+    results, _ = rule.apply(MONGOD_CMDLINE)
+
+    issue_ids = {issue["id"] for issue in results}
+    assert ISSUE.ENCRYPTION_AT_REST_DISABLED in issue_ids
