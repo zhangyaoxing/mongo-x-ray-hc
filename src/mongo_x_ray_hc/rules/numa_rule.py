@@ -15,10 +15,12 @@ from mongo_x_ray_hc.rules.base_rule import BaseRule
 class NumaRule(BaseRule):
     def __init__(self, thresholds=None):
         super().__init__(thresholds)
-        self._rule_desc.append("Checks if NUMA is correctly configured based on MongoDB version.")
+        self._rule_desc.append("Checks that NUMA is disabled.")
 
     def apply(self, data: dict, **kwargs) -> tuple:
         """Check the NUMA node configuration for any issues.
+
+        NUMA should be disabled for database servers on all MongoDB versions.
 
         Args:
             data (dict): The `hostInfo` command result.
@@ -28,15 +30,9 @@ class NumaRule(BaseRule):
         host = kwargs.get("extra_info", {}).get("host", "unknown")
         version = kwargs.get("extra_info", {}).get("version", None)
         test_result = []
-        assert version is not None, (
-            "Version information is required for NUMA check. Run BuildInfoItem before this check."
-        )
         numa_enabled = data.get("system", {}).get("numaEnabled", None)
-        if numa_enabled is not None and numa_enabled and version <= "7.0":
+        if numa_enabled is not None and numa_enabled:
             issue = create_issue(ISSUE.NUMA_ENABLED, host, params={"version": version, "host": host})
-            test_result.append(issue)
-        if numa_enabled is not None and not numa_enabled and version >= "8.0":
-            issue = create_issue(ISSUE.NUMA_DISABLED, host, params={"version": version, "host": host})
             test_result.append(issue)
 
         return test_result, data
