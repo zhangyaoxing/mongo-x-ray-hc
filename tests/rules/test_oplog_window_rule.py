@@ -8,8 +8,8 @@ YOU ARE RESPONSIBLE FOR TESTING, VALIDATING, AND SECURING THIS CODE WITHIN YOUR 
 THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 
-from mongo_x_ray.issues import ISSUE, ISSUE_MSG_MAP
 from mongo_x_ray.shared import SEVERITY
+from mongo_x_ray_hc.issues import ISSUE, ISSUE_MSG_MAP
 from mongo_x_ray_hc.rules.oplog_window_rule import OplogWindowRule
 
 DATA_WITH_SMALL_OPLOG_WINDOW = {
