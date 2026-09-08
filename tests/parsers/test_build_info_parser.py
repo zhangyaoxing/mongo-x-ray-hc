@@ -65,24 +65,24 @@ def test_build_info_parser():
     assert len(table["rows"]) == 3
     assert table["rows"][0] == [
         "shard01",
-        "localhost:30018",
-        "5.0.19",
+        "`localhost:30018`",
+        "`5.0.19`",
         "Apple Secure Transport",
         "x86_64",
         "macOS",
     ]
     assert table["rows"][1] == [
         "shard01",
-        "localhost:30019",
-        "5.0.19",
+        "`localhost:30019`",
+        "`5.0.19`",
         "Apple Secure Transport",
         "x86_64",
         "macOS",
     ]
     assert table["rows"][2] == [
         "shard01",
-        "localhost:30020",
-        "N/A",
+        "`localhost:30020`",
+        "`N/A`",
         "N/A",
         "N/A",
         "N/A",
