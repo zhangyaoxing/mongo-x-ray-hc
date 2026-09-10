@@ -1,38 +1,19 @@
 # Release Notes — mongo-x-ray-hc
 
-> Generated from the full Git commit history (2026-08-23 → 2026-08-31, 45 commits).
+## 2.1.0
 
-## Initial Release (v2.0.0)
-- Extracted the health check into a standalone `mongo-x-ray-healthcheck` plugin; renamed the distribution to **mongo-x-ray-hc** (package `mongo_x_ray_hc`) and switched imports to the shared `mongo_x_ray` core.
-- Added an `hc` alias for the `healthcheck` command.
-- Added a Makefile (`minify`, `unit-test`, `lint` targets) and unit-test launch configuration.
+### Changed
+- **Issue catalog is owned by this plugin again**: `mongo_x_ray_hc.issues` holds the `ISSUE` enum, the message templates and `create_issue()`. Plugins that reuse health-check rules (log, gmd) reference it through those rules, and the catalog is no longer shipped by the core.
+- **Copyable values**: important table contents are wrapped in backticks, so the new report copy icons can copy them with one click.
 
-## New Features
-- **Replication rules:**
-  - `JournalingRule` — alerts on `writeConcernMajorityJournalDefault` not enabled.
-  - `ChainedReplicationRule` — alerts on `chainingAllowed` (with proper unwrapped rs-config handling).
-  - `WriteConcernRule` — alerts on non-default write concern, including `wtimeout = 0`.
-- **Server parameter checks:**
-  - Collects `server_parameters` in a dedicated check item; parameter issues grouped under ID range 1700.
-  - Alerts on high `minSnapshotHistoryWindowInSeconds`, enabled SBE on MongoDB 6.0/7.0, FTDC configuration issues, insecure/unrecognized TLS protocols, and improper member priority settings.
-- **Risk register as an optional plugin** (`mongo_x_ray_risk`): Known Risks summary column is hidden when no risk register is detected; plugin distribution declared so `x-ray <name> --version` works.
+### Fixed
+- **Encryption at rest on mongos**: the encryption-at-rest alert is now skipped for `mongos` (it has no storage engine configuration to check).
+- **NUMA**: NUMA is reported on all MongoDB versions again (the alert had become version-dependent).
 
-## Fixes
-- Fixed risk tooltips wrapping in Markdown tables.
-- Use bundled test fixtures instead of core `misc/` data.
-- Fixed an uninitialized browser fixture variable in CI.
-- Style: widened the Category column in the summary table.
+### Inherited from core (applies to every health check report)
+- **Copy icons** for inline code, code blocks (top-right icon instead of the "Copy" text) and table `<pre>` blocks, preserving line breaks and indentation when copied.
+- **Output folder naming**: report folders are prefixed with the plugin name (`healthcheck-default-<timestamp>`, `healthcheck-<hostname>-default-<timestamp>`), including with `--discover`.
 
-## Tooling & Quality
-- Migrated to ruff (lint + format) with matching `.vscode` config; dropped pylint/Black; pinned pyright config and fixed type errors.
-- Declared direct dependencies after an import audit; deterministic isort via explicit known-first-party.
-- Unified copyright headers to 2026 and normalized formatting.
+## 2.0.0
 
-## CI/CD
-- Added GitHub Actions CI with a lint target.
-- Enabled CodeQL analysis.
-- Publish to (Test)PyPI on tagged releases via trusted publishing.
-
-## Documentation
-- Rewrote the README: badges (CI, PyPI), usage and parameters, analysis items, and compatibility matrix.
-- Documented MongoDB 5.0+ requirement and topology compatibility (replica sets and sharded clusters supported; **standalone not supported**).
+The health check was extracted into a standalone plugin (`mongo-x-ray-hc`, package `mongo_x_ray_hc`, command `healthcheck` with the `hc` alias), using the shared `mongo_x_ray` core. It added replication rules (journaling, chained replication, write concern, member priority), server parameter checks (snapshot window, SBE, FTDC, TLS protocols), an optional risk-register integration (Known Risks column hidden when no register is detected), plus a Makefile, CI, CodeQL and (Test)PyPI publishing. MongoDB 5.0+ is required; standalone deployments are not supported.
