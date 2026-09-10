@@ -8,8 +8,8 @@ YOU ARE RESPONSIBLE FOR TESTING, VALIDATING, AND SECURING THIS CODE WITHIN YOUR 
 THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 
-from mongo_x_ray.issues import ISSUE, create_issue
 from mongo_x_ray.version import Version
+from mongo_x_ray_hc.issues import ISSUE, create_issue
 from mongo_x_ray_hc.rules.base_rule import BaseRule
 
 

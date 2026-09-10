@@ -42,7 +42,7 @@ class BuildInfoParser(BaseParser):
         ver_count: dict[str, int] = {}
         for name, host, raw_result in build_infos:
             if raw_result is None:
-                rows.append([name, host, "N/A", "N/A", "N/A", "N/A"])
+                rows.append([name, f"`{host}`", "`N/A`", "N/A", "N/A", "N/A"])
                 ver_count["N/A"] = ver_count.get("N/A", 0) + 1
                 continue
             build_env = raw_result.get("buildEnvironment", {})
@@ -51,8 +51,8 @@ class BuildInfoParser(BaseParser):
             rows.append(
                 [
                     name,
-                    host,
-                    v,
+                    f"`{host}`",
+                    f"`{v}`",
                     raw_result.get("openssl", {}).get("running", ""),
                     build_env.get("target_arch", ""),
                     build_env.get("target_os", ""),

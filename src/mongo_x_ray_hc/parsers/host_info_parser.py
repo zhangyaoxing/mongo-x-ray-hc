@@ -53,7 +53,7 @@ class HostInfoParser(BaseParser):
         }
         for host, info in data:
             if not info:
-                rows.append([host, "N/A", "N/A", "N/A", "N/A", "N/A"])
+                rows.append([f"`{host}`", "N/A", "N/A", "N/A", "N/A", "N/A"])
                 continue
             system: dict = info["system"]
             os: dict = info["os"]
@@ -64,7 +64,7 @@ class HostInfoParser(BaseParser):
             mem_bytes = system["memLimitMB"] * 1024**2
             rows.append(
                 [
-                    system["hostname"],
+                    f"`{system['hostname']}`",
                     f"{extra.get('cpuString', '(Unknown CPU)')} ({system['cpuArch']}) {extra.get('cpuFrequencyMHz', 'n/a')} MHz",
                     f"{system['numCores']}c",
                     (format_size(mem_bytes), mem_bytes),
@@ -76,8 +76,8 @@ class HostInfoParser(BaseParser):
             for mount in mounts:
                 rows_mounts.append(
                     [
-                        system["hostname"],
-                        mount.get("mountPoint", "N/A"),
+                        f"`{system['hostname']}`",
+                        f"`{mount.get('mountPoint', 'N/A')}`",
                         mount.get("type", "N/A"),
                         mount.get("options", "N/A"),
                     ]

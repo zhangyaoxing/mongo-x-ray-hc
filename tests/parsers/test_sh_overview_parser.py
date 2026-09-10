@@ -54,5 +54,5 @@ def test_sh_overview_parser():
         {"text": "Ping Latency (sec)", "width": "200px"},
         {"text": "Last Ping", "width": "250px"},
     ]
-    assert mongos_table["rows"][0] == ["M-QTFH0WFXLG:30017", 1.649169, {"$date": "2025-12-10T22:18:14.610Z"}]
-    assert mongos_table["rows"][1] == ["M-QTFH0WFXLG:30028", 10315140, {"$date": "2025-08-13T12:59:19.978Z"}]
+    assert mongos_table["rows"][0] == ["`M-QTFH0WFXLG:30017`", 1.649169, {"$date": "2025-12-10T22:18:14.610Z"}]
+    assert mongos_table["rows"][1] == ["`M-QTFH0WFXLG:30028`", 10315140, {"$date": "2025-08-13T12:59:19.978Z"}]

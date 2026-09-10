@@ -49,8 +49,8 @@ class IndexInfoParser(BaseParser):
                 rows.append(
                     [
                         escape_markdown(component),
-                        escape_markdown(ns),
-                        escape_markdown(stats["name"]),
+                        f"`{ns}`",
+                        f"`{stats['name']}`",
                         f"`{key_md}`{options_md}",
                         f"{access_per_hour:.4f}",
                     ]

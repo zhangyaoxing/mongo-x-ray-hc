@@ -83,7 +83,7 @@ def test_host_info_parser():
         {"text": "NUMA Enabled", "width": "100px"},
     ]
     assert table_hardware["rows"][0] == [
-        "M-QTFH0WFXLG:30017",
+        "`M-QTFH0WFXLG:30017`",
         "Apple M1 Max (x86_64) 2400 MHz",
         "10c",
         ("32.00 GB", 34359738368),
@@ -91,7 +91,7 @@ def test_host_info_parser():
         False,
     ]
     assert table_hardware["rows"][1] == [
-        "ip-172-31-22-196",
+        "`ip-172-31-22-196`",
         "Intel(R) Xeon(R) Platinum 8175M CPU @ 2.50GHz (x86_64) 3200.679 MHz",
         "2c",
         ("7.55 GB", 8111783936),
@@ -99,7 +99,7 @@ def test_host_info_parser():
         False,
     ]
     assert table_hardware["rows"][2] == [
-        "M-QTFH0WFXLG:30028",
+        "`M-QTFH0WFXLG:30028`",
         "N/A",
         "N/A",
         "N/A",
@@ -116,14 +116,14 @@ def test_host_info_parser():
         {"text": "Options", "width": "200px"},
     ]
     assert table_mounts["rows"][0] == [
-        "ip-172-31-22-196",
-        "/",
+        "`ip-172-31-22-196`",
+        "`/`",
         "ext4",
         "rw,relatime",
     ]
     assert table_mounts["rows"][1] == [
-        "ip-172-31-22-196",
-        "/dev",
+        "`ip-172-31-22-196`",
+        "`/dev`",
         "devtmpfs",
         "rw,nosuid,noexec,relatime",
     ]

@@ -52,7 +52,7 @@ class SHOverviewParser(BaseParser):
         output_list.append(mongos_table)
 
         if raw_result is None:
-            mongos_rows.append(["n/a", "n/a", "n/a"])
+            mongos_rows.append(["`n/a`", "n/a", "n/a"])
             return output_list
         component_names = data["map"].keys()
         shards = sum(1 for name in component_names if name not in ["mongos", "config"])
@@ -61,7 +61,7 @@ class SHOverviewParser(BaseParser):
         for host, info in raw_result.items():
             ping_latency = info.get("pingLatencySec", 0)
             last_ping = info.get("lastPing", False)
-            mongos_rows.append([host, ping_latency, last_ping])
+            mongos_rows.append([f"`{host}`", ping_latency, last_ping])
             if ping_latency < MAX_MONGOS_PING_LATENCY:
                 active_mongos += 1
         overview_rows.append([shards, mongos, active_mongos])
