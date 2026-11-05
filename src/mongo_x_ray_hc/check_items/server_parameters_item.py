@@ -110,4 +110,6 @@ class ServerParametersItem(BaseItem):
             cells = [f"`{r['host']}`", f"`{r['set_name']}`"]
             cells += [f"`{params.get(param, 'n/a')}`" for param in REVIEW_PARAMETERS]
             output += "| " + " | ".join(cells) + " |\n"
-        return output
+        # End on a blank line: a heading written right after the last row would
+        # be parsed as one more row of this table.
+        return output.rstrip("\n") + "\n\n"

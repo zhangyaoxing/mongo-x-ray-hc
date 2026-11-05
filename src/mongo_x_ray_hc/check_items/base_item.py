@@ -186,7 +186,9 @@ class BaseItem(ABC):
                             result += line.replace("{name}", self.__class__.__name__)
                 result += "})()\n"
                 result += "</script>\n"
-        return result
+        # End on a blank line so the heading that follows this item parses (see
+        # write_markdown_block) - a chart leaves a single newline otherwise.
+        return result.rstrip("\n") + "\n\n"
 
     @property
     def cache_file_name(self) -> str:

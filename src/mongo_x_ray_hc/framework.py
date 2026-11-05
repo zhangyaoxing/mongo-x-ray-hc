@@ -22,6 +22,21 @@ logger = logging.getLogger(__name__)
 CHECKLIST_CLASSES = load_classes("mongo_x_ray_hc.check_items")
 
 
+def write_markdown_block(output: TextIO, text: str) -> None:
+    """Write a markdown block, ending it with a blank line.
+
+    Every heading in the report has to be preceded by a blank line: the report
+    is converted with python-markdown's table extension, which keeps a line that
+    follows a table row inside the table. A check item whose markdown ends right
+    after its last row would otherwise turn the next heading into a table cell -
+    that is how "2.5 Review Shard Key Information" used to disappear into the
+    server parameters table of "2.4".
+    """
+    text = text.strip("\n")
+    if text:
+        output.write(f"{text}\n\n")
+
+
 class Framework(BaseFramework):
     template_module = "healthcheck"
     template_package = "mongo_x_ray_hc"
@@ -144,7 +159,7 @@ class Framework(BaseFramework):
             output.write(f"### {title}\n\n")
             output.write(f"{item.description}\n\n")
             output.write(f"[Review Raw Results &rarr;](#{review_title_id})\n\n")
-            output.write(item.test_result_markdown)
+            write_markdown_block(output, item.test_result_markdown)
 
         output.write("## 2 Review Raw Results\n\n")
         for i, item in enumerate(self._items):
@@ -154,4 +169,4 @@ class Framework(BaseFramework):
             review_title = f"2.{i + 1} Review {item.name}"
             output.write(f"### {review_title}\n\n")
             output.write(f"[&larr; Review Test Results](#{title_id})\n\n")
-            output.write(item.review_result_markdown)
+            write_markdown_block(output, item.review_result_markdown)
