@@ -82,3 +82,52 @@ def test_snapshot_window_string_value():
     result, _ = rule.apply({"minSnapshotHistoryWindowInSeconds": "300"}, extra_info={"host": "localhost:27017"})
     assert len(result) == 1
     assert result[0]["id"] == ISSUE.HIGH_MIN_SNAPSHOT_WINDOW
+
+
+def test_default_threshold_flags_a_value_just_above_it():
+    rule = SnapshotWindowRule({})
+
+    result, _ = rule.apply({"minSnapshotHistoryWindowInSeconds": 6}, extra_info={"host": "localhost:27017"})
+    assert len(result) == 1
+    assert result[0]["id"] == ISSUE.HIGH_MIN_SNAPSHOT_WINDOW
+
+
+def test_threshold_comes_from_the_item_config():
+    rule = SnapshotWindowRule({"min_snapshot_history_window_seconds": 60})
+
+    result, _ = rule.apply(SERVER_PARAMETERS_DEFAULT, extra_info={"host": "localhost:27017"})
+    assert len(result) == 1
+    # The configured threshold is reported as the recommendation, not the default.
+    assert "`60`" in result[0]["description"]
+    assert "`5`" not in result[0]["description"]
+
+
+def test_value_below_a_custom_threshold_is_not_reported():
+    rule = SnapshotWindowRule({"min_snapshot_history_window_seconds": 3600})
+
+    result, _ = rule.apply(SERVER_PARAMETERS_DEFAULT, extra_info={"host": "localhost:27017"})
+    assert result == []
+
+
+def test_value_equal_to_a_custom_threshold_is_not_reported():
+    rule = SnapshotWindowRule({"min_snapshot_history_window_seconds": 300})
+
+    result, _ = rule.apply(SERVER_PARAMETERS_DEFAULT, extra_info={"host": "localhost:27017"})
+    assert result == []
+
+
+def test_invalid_threshold_does_not_raise():
+    rule = SnapshotWindowRule({"min_snapshot_history_window_seconds": "not-a-number"})
+
+    result, _ = rule.apply(SERVER_PARAMETERS_DEFAULT, extra_info={"host": "localhost:27017"})
+    assert result == []
+
+
+def test_server_parameters_item_passes_its_config_to_the_rule():
+    from mongo_x_ray_hc.check_items.server_parameters_item import ServerParametersItem
+
+    item = ServerParametersItem("output/", {"min_snapshot_history_window_seconds": 10})
+
+    result, _ = item._rules["snapshot_window"].apply(SERVER_PARAMETERS_DEFAULT, extra_info={"host": "localhost:27017"})
+    assert len(result) == 1
+    assert "`10`" in result[0]["description"]

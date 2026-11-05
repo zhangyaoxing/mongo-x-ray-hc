@@ -11,7 +11,8 @@ THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 from mongo_x_ray_hc.issues import ISSUE, create_issue
 from mongo_x_ray_hc.rules.base_rule import BaseRule
 
-# Recommended value on data-bearing nodes (MongoDB 5.0+): 5 seconds.
+# Recommended value on data-bearing nodes (MongoDB 5.0+): 5 seconds. The
+# threshold is configurable through the owning check item, see `apply`.
 RECOMMENDED_MIN_SNAPSHOT_HISTORY_WINDOW = 5
 
 
@@ -28,6 +29,11 @@ class SnapshotWindowRule(BaseRule):
         general recommendation is 5 seconds on data-bearing nodes when the
         snapshot read concern is not needed.
 
+        The threshold comes from the owning check item's configuration
+        (`min_snapshot_history_window_seconds`, defaults to
+        :data:`RECOMMENDED_MIN_SNAPSHOT_HISTORY_WINDOW`), and a value above it is
+        reported.
+
         Args:
             data (dict): The `getParameter` output, e.g. from the
                 `server_parameters` subsection of a getMongoData dump.
@@ -37,20 +43,21 @@ class SnapshotWindowRule(BaseRule):
             tuple: (list of issues found, parsed data)
         """
         host = kwargs.get("extra_info", {}).get("host", "unknown")
+        threshold = self._thresholds.get("min_snapshot_history_window_seconds", RECOMMENDED_MIN_SNAPSHOT_HISTORY_WINDOW)
         result = []
         value = data.get("minSnapshotHistoryWindowInSeconds")
         if isinstance(value, dict):
             value = value.get("value", value)
         if value is not None:
             try:
-                too_high = int(value) > RECOMMENDED_MIN_SNAPSHOT_HISTORY_WINDOW
+                too_high = int(value) > int(threshold)
             except (TypeError, ValueError):
                 too_high = False
             if too_high:
                 issue = create_issue(
                     ISSUE.HIGH_MIN_SNAPSHOT_WINDOW,
                     host=host,
-                    params={"value": int(value)},
+                    params={"value": int(value), "recommended": int(threshold)},
                 )
                 result.append(issue)
         return result, data

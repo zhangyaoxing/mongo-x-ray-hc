@@ -484,7 +484,7 @@ ISSUE_MSG_MAP = {
         "id": ISSUE.HIGH_MIN_SNAPSHOT_WINDOW,
         "severity": SEVERITY.MEDIUM,
         "title": "High minSnapshotHistoryWindowInSeconds",
-        "description": "`minSnapshotHistoryWindowInSeconds` is set to `{value}` seconds, above the recommended `5` seconds on data-bearing nodes. A high value can cause performance issues on MongoDB 5.0 and above by retaining excessive snapshot history in the cache. Consider setting it to `5` seconds if the snapshot read concern is not needed.",
+        "description": "`minSnapshotHistoryWindowInSeconds` is set to `{value}` seconds, above the recommended `{recommended}` seconds on data-bearing nodes. A high value can cause performance issues on MongoDB 5.0 and above by retaining excessive snapshot history in the cache. Consider setting it to `{recommended}` seconds if the snapshot read concern is not needed.",
     },
     ISSUE.SBE_ENABLED: {
         "id": ISSUE.SBE_ENABLED,
