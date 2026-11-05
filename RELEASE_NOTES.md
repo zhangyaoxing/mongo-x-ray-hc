@@ -1,5 +1,14 @@
 # Release Notes — mongo-x-ray-hc
 
+## 2.1.2
+
+### Fixed
+- **Report headings are no longer swallowed by the preceding table**: the report markdown is converted with python-markdown's table extension, which keeps a line that follows a table row inside the table, so `### 2.5 Review Shard Key Information` — and its outline entry — disappeared into the server parameters table of `2.4`. Every check item's markdown now ends on a blank line before the next heading is written.
+- **Cluster checks survive a missing server parameter**: the chained replication rule asks for `enableOverrideClusterChainingSetting` through `getParameter`, and newer servers answer `InvalidOptions: no option found to get` (code 72). The exception escaped the replica set level check and discarded the status, config and journaling findings with it. A server that does not expose the option now counts as "override not set", while any other `OperationFailure` still propagates.
+
+### Changed
+- **Snapshot history window threshold is configurable**: read `min_snapshot_history_window_seconds` from the item configuration (default `5`) instead of a module constant, and quote the configured value in the finding.
+
 ## 2.1.1
 
 Dependency and automation release — the plugin's own behaviour is unchanged.
