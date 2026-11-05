@@ -8,6 +8,10 @@ YOU ARE RESPONSIBLE FOR TESTING, VALIDATING, AND SECURING THIS CODE WITHIN YOUR 
 THIS MATERIAL IS PROVIDED "AS IS" WITHOUT WARRANTY OR LIABILITY.
 """
 
+import re
+
+from pymongo.errors import OperationFailure
+
 from mongo_x_ray.utils import yellow
 from mongo_x_ray_hc.check_items.base_item import BaseItem
 from mongo_x_ray_hc.parsers.rs_details_parser import RSDetailsParser
@@ -25,6 +29,11 @@ from mongo_x_ray_hc.shared import (
     enum_all_nodes,
     enum_result_items,
 )
+
+# Reply codes a server uses when a getParameter option is not available:
+# CommandNotFound and InvalidOptions.
+_GET_PARAMETER_UNAVAILABLE_CODES = frozenset({59, 72})
+_NO_OPTION_FOUND_TO_GET = re.compile(r"no option found to get", re.IGNORECASE)
 
 
 class ClusterItem(BaseItem):
@@ -64,7 +73,7 @@ class ClusterItem(BaseItem):
         test_result.extend(result)
         result, _ = self._rules["journaling"].apply(replset_config)
         test_result.extend(result)
-        server_parameters = client.admin.command("getParameter", "enableOverrideClusterChainingSetting")
+        server_parameters = self._get_chaining_override(client)
         result, _ = self._rules["chained_replication"].apply(
             {"config": replset_config["config"], "server_parameters": server_parameters}
         )
@@ -73,6 +82,27 @@ class ClusterItem(BaseItem):
         self.append_test_results(test_result)
 
         return test_result, raw_result
+
+    def _get_chaining_override(self, client) -> dict:
+        """Return the server parameters the chained replication rule needs.
+
+        ``enableOverrideClusterChainingSetting`` is only fetched for the chained
+        replication rule, and recent server versions no longer know the option:
+        they answer ``InvalidOptions: no option found to get``. That must not
+        abort the whole cluster level check, so a missing option counts as "not
+        set" - the replica set configuration still decides whether chaining is
+        allowed.
+        """
+        try:
+            return client.admin.command("getParameter", "enableOverrideClusterChainingSetting")
+        except OperationFailure as exc:
+            if exc.code not in _GET_PARAMETER_UNAVAILABLE_CODES and not _NO_OPTION_FOUND_TO_GET.search(str(exc)):
+                raise
+            self._logger.debug(
+                "The server does not expose enableOverrideClusterChainingSetting (%s), assuming it is not set.",
+                exc.code,
+            )
+            return {}
 
     def _check_sh(self, set_name, node, **kwargs):
         """
