@@ -346,7 +346,7 @@ ISSUE_MSG_MAP = {
         "id": ISSUE.ENCRYPTION_AT_REST_DISABLED,
         "severity": SEVERITY.MEDIUM,
         "title": "Encryption at Rest Disabled",
-        "description": "Encryption at rest is disabled, which may lead to data exposure if the storage media is compromised.",
+        "description": "Encryption at rest is disabled in MongoDB, which may lead to data exposure if the storage media is compromised. This check only inspects the `enableEncryption` server setting: if the data directory is protected by OS-level volume encryption (for example LUKS, BitLocker or the cloud provider's disk encryption), this finding can be ignored.",
     },
     ISSUE.ENCRYPTION_AT_REST_USING_KEYFILE: {
         "id": ISSUE.ENCRYPTION_AT_REST_USING_KEYFILE,

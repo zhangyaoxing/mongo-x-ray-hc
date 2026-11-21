@@ -160,3 +160,14 @@ def test_security_rule_mongod_reports_encryption_at_rest():
 
     issue_ids = {issue["id"] for issue in results}
     assert ISSUE.ENCRYPTION_AT_REST_DISABLED in issue_ids
+
+
+def test_encryption_at_rest_message_mentions_os_level_encryption():
+    # The check reads server settings only, so OS-level volume encryption cannot
+    # be detected. The message has to say the finding may then be a false alarm.
+    rule = SecurityRule({})
+    results, _ = rule.apply(MONGOD_CMDLINE)
+
+    issue = next(result for result in results if result["id"] is ISSUE.ENCRYPTION_AT_REST_DISABLED)
+    assert "OS-level volume encryption" in issue["description"]
+    assert "can be ignored" in issue["description"]
