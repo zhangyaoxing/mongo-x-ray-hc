@@ -36,11 +36,11 @@ def test_mongodb_template_inlines_the_theme(tmp_path):
     html = _render_report(tmp_path)
 
     # Theme and shared styles are inlined; nothing is fetched as a stylesheet.
-    assert "--mongo-green-base" in html
+    assert "--lg-green-base" in html
     assert "--bgColor-muted" in html
     assert '<link rel="stylesheet"' not in html
     # The theme is appended after the shared styles so it wins the cascade.
-    assert html.index("--bgColor-muted") < html.index("--mongo-green-base")
+    assert html.index("--bgColor-muted") < html.index("--lg-green-base")
 
 
 def test_mongodb_template_renders_the_report_body(tmp_path):
@@ -69,7 +69,7 @@ def test_mongodb_template_keeps_the_chart_libraries():
 def test_default_template_does_not_pull_the_theme():
     html = _render_report_with_defaults()
 
-    assert "--mongo-green-base" not in html
+    assert "--lg-green-base" not in html
 
 
 def _render_report_with_defaults() -> str:
