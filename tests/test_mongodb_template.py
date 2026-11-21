@@ -48,6 +48,7 @@ def test_mongodb_template_renders_the_report_body(tmp_path):
 
     assert "<title>Healthcheck Report</title>" in html
     assert 'class="mongo-header"' in html
+    assert "outline-header" in html
     assert ">MongoDB<" in html
     assert ">x-ray<" in html
     # The content placeholder is filled in by the framework.
