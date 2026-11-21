@@ -18,19 +18,9 @@ from typing import Optional, Union
 from bson import json_util
 
 from mongo_x_ray.parsers.base_parser import TABLE_ALIGNMENT
-from mongo_x_ray.shared import SEVERITY, to_json
+from mongo_x_ray.shared import SEVERITY, severity_badge, to_json
 from mongo_x_ray.utils import env, get_script_path, to_ejson
 from mongo_x_ray_hc.rules.base_rule import BaseRule
-
-
-def colorize_severity(severity: SEVERITY) -> str:
-    mapping = {
-        SEVERITY.HIGH.name: "red",
-        SEVERITY.MEDIUM.name: "orange",
-        SEVERITY.LOW.name: "green",
-        SEVERITY.INFO.name: "gray",
-    }
-    return mapping.get(severity.name, "black")
 
 
 class BaseItem(ABC):
@@ -106,11 +96,7 @@ class BaseItem(ABC):
         result += "|:----------:|:----------:|:----------:|---------|---------|\n"
         for idx, item in enumerate(self._test_result):
             severity = item["severity"]
-            severity_cell = (
-                f'<span data-sort-value="{severity.value}">'
-                f"<b style='color: {colorize_severity(severity)}'>"
-                f" {severity.name} </b></span>"
-            )
+            severity_cell = f'<span data-sort-value="{severity.value}">{severity_badge(severity)}</span>'
             category_cell = item["title"]
             risk = item.get("matched_risk")
             if risk:
