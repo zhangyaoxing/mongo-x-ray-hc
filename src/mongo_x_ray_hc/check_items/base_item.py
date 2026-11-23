@@ -158,7 +158,7 @@ class BaseItem(ABC):
                 result += "\n"
                 i += 1
             elif chart_type == "chart":
-                result += f'<div id="container_{self.__class__.__name__}_{j}"></div>'
+                result += f'<div id="container_{self.__class__.__name__}_{j}" class="chart-container"></div>'
                 result += "<script type='text/javascript'>\n"
                 result += "(function() {\n"
                 result += f"const container = document.getElementById('container_{self.__class__.__name__}_{j}');\n"
