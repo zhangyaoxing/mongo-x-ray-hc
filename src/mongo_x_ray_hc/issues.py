@@ -472,7 +472,7 @@ ISSUE_MSG_MAP = {
         "id": ISSUE.NON_DEFAULT_WRITE_CONCERN,
         "severity": SEVERITY.MEDIUM,
         "title": "Non-Default Write Concern",
-        "description": "The default write concern `w` is `majority`, not `{w}`. Writes using the customized write concern may be acknowledged without majority durability. Consider setting the default write concern to `majority`.",
+        "description": "The write concern `w` should default to `majority`, not `{w}`. Writes using the customized write concern may be acknowledged without majority durability. Consider setting the default write concern to `majority`.",
     },
     ISSUE.ZERO_WRITE_CONCERN_TIMEOUT: {
         "id": ISSUE.ZERO_WRITE_CONCERN_TIMEOUT,
