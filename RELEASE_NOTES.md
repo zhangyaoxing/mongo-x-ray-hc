@@ -1,5 +1,19 @@
 # Release Notes — mongo-x-ray-hc
 
+## 2.1.3
+
+### Added
+- **MongoDB report template** (`healthcheck/mongodb.html`): the report rendered in the MongoDB design system — dark report on the LeafyGreen SideNav, Table, Badge, Tabs, Button and Typography components, with the icons inlined. It loads no remote stylesheet and no webfont. Select it with `"healthcheck": {"template": "healthcheck/mongodb.html"}`; `full.html` stays available.
+- **Severity badges**: severities are MongoDB Badges (HIGH red, MEDIUM yellow, LOW green, INFO light gray) instead of bold coloured text, in the findings table and anywhere else a severity is shown.
+
+### Changed
+- **The report outline** has a proper header row, so the collapse toggle no longer covers "Report Outline"; the outline highlight and the anchor jump were fixed upstream.
+- **Chart blocks** get the shared `chart-container` spacing, so charts no longer touch each other.
+- Requires `mongo-x-ray>=2.1.3` for the shared badge/AI helpers and the report stylesheets.
+
+### Fixed
+- **Encryption at rest message**: `ENCRYPTION_AT_REST_DISABLED` now says that a finding can be ignored when the data directory is protected by OS-level volume encryption (LUKS, BitLocker, cloud disk encryption), which was reported as a false alarm.
+
 ## 2.1.2
 
 ### Fixed
