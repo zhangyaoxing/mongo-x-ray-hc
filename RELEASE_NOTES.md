@@ -1,5 +1,12 @@
 # Release Notes — mongo-x-ray-hc
 
+## 2.1.4
+
+Version alignment with x-ray 2.1.4 — the first published build of the 2.1.3 changes.
+
+`mongo-x-ray==2.1.3` reached PyPI without the MongoDB theme stylesheet, so its reports rendered unstyled and the 2.1.3 plugin packages were never published; 2.1.4 fixes the core packaging and these plugins require `mongo-x-ray>=2.1.4`.
+
+
 ## 2.1.3
 
 ### Added
@@ -9,7 +16,7 @@
 ### Changed
 - **The report outline** has a proper header row, so the collapse toggle no longer covers "Report Outline"; the outline highlight and the anchor jump were fixed upstream.
 - **Chart blocks** get the shared `chart-container` spacing, so charts no longer touch each other.
-- Requires `mongo-x-ray>=2.1.3` for the shared badge/AI helpers and the report stylesheets.
+- Requires `mongo-x-ray>=2.1.4` for the shared badge/AI helpers and the report stylesheets.
 
 ### Fixed
 - **Encryption at rest message**: `ENCRYPTION_AT_REST_DISABLED` now says that a finding can be ignored when the data directory is protected by OS-level volume encryption (LUKS, BitLocker, cloud disk encryption), which was reported as a false alarm.
