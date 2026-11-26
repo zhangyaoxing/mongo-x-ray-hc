@@ -171,3 +171,14 @@ def test_encryption_at_rest_message_mentions_os_level_encryption():
     issue = next(result for result in results if result["id"] is ISSUE.ENCRYPTION_AT_REST_DISABLED)
     assert "OS-level volume encryption" in issue["description"]
     assert "can be ignored" in issue["description"]
+
+
+def test_colorize_severity_stays_available_for_older_plugins():
+    """gmd released before 2.1.4 imports this helper, so it must not disappear."""
+    from mongo_x_ray.shared import SEVERITY
+    from mongo_x_ray_hc.check_items.base_item import colorize_severity
+
+    assert colorize_severity(SEVERITY.HIGH) == "red"
+    assert colorize_severity(SEVERITY.MEDIUM) == "orange"
+    assert colorize_severity(SEVERITY.LOW) == "green"
+    assert colorize_severity(SEVERITY.INFO) == "gray"

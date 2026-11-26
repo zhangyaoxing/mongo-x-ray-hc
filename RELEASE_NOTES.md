@@ -1,5 +1,11 @@
 # Release Notes — mongo-x-ray-hc
 
+## 2.1.5
+
+### Fixed
+- **`colorize_severity` is back**: 2.1.4 replaced the per-plugin coloured severity text with `mongo_x_ray.shared.severity_badge()` and dropped this helper, but the gmd plugin released before 2.1.4 still imports it from here — upgrading this plugin alone then failed on `ImportError: cannot import name 'colorize_severity'`. The helper is restored (unchanged mapping) so older plugins keep working; new code should use the shared badge helper.
+
+
 ## 2.1.4
 
 Version alignment with x-ray 2.1.4 — the first published build of the 2.1.3 changes.

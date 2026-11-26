@@ -23,6 +23,23 @@ from mongo_x_ray.utils import env, get_script_path, to_ejson
 from mongo_x_ray_hc.rules.base_rule import BaseRule
 
 
+def colorize_severity(severity: SEVERITY) -> str:
+    """Return the colour name used for a severity.
+
+    Kept for the plugins released before x-ray 2.1.4, which import it from here
+    (`mongo-x-ray-gmd` did until 2.1.4), so upgrading this plugin alone does not
+    break them. New code should use ``mongo_x_ray.shared.severity_badge()``, which
+    renders the MongoDB Badge instead of a colour name.
+    """
+    mapping = {
+        SEVERITY.HIGH.name: "red",
+        SEVERITY.MEDIUM.name: "orange",
+        SEVERITY.LOW.name: "green",
+        SEVERITY.INFO.name: "gray",
+    }
+    return mapping.get(severity.name, "black")
+
+
 class BaseItem(ABC):
     _name: str
     _test_result: list
